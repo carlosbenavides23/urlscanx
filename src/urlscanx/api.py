@@ -61,7 +61,12 @@ def api_key() -> str:
 def _get(path: str, key: str, *, allow_not_found: bool = False) -> bytes | None:
     request = Request(
         f"{BASE}{path}",
-        headers={"api-key": key, "User-Agent": f"urlscanx/{__version__}", "Accept": "*/*"},
+        headers={
+            "api-key": key,
+            "User-Agent": f"urlscanx/{__version__}",
+            "Accept": "*/*",
+            "Accept-Encoding": "identity",
+        },
     )
     for attempt in range(3):
         try:
