@@ -2,11 +2,22 @@ import os
 import unittest
 from unittest.mock import patch
 
-from urlscanx.api import ScanError, api_key, parse_scan
+from urlscanx.api import ScanError, _get, api_key, parse_scan
 from urlscanx.cli import main
 
 
 SCAN = "01a0e84d-e186-775a-b6b8-ec96c96fccf0"
+
+
+class _FakeResponse:
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        return False
+
+    def read(self):
+        return b"ok"
 
 
 class InputTests(unittest.TestCase):
@@ -31,3 +42,10 @@ class InputTests(unittest.TestCase):
         with self.assertRaises(SystemExit) as error:
             main(["compare", SCAN])
         self.assertEqual(error.exception.code, 2)
+
+    @patch("urlscanx.api.urlopen")
+    def test_requests_identity_encoding(self, mocked_urlopen):
+        mocked_urlopen.return_value = _FakeResponse()
+        self.assertEqual(_get("/dom/test/", "key"), b"ok")
+        request = mocked_urlopen.call_args.args[0]
+        self.assertEqual(request.get_header("Accept-encoding"), "identity")
