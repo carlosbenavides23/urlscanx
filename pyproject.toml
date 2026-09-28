@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "urlscanx"
-version = "0.1.1"
+version = "0.1.2"
 description = "Small CLI for inspecting and comparing urlscan.io results."
 readme = "README.md"
 requires-python = ">=3.11"
