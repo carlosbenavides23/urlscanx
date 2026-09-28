@@ -65,7 +65,7 @@ def _get(path: str, key: str, *, allow_not_found: bool = False) -> bytes | None:
             "api-key": key,
             "User-Agent": f"urlscanx/{__version__}",
             "Accept": "*/*",
-            "Accept-Encoding": "identity",
+            "Accept-Encoding": "gzip, deflate",
         },
     )
     for attempt in range(3):

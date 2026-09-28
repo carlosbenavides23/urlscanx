@@ -48,4 +48,24 @@ class InputTests(unittest.TestCase):
         mocked_urlopen.return_value = _FakeResponse()
         self.assertEqual(_get("/dom/test/", "key"), b"ok")
         request = mocked_urlopen.call_args.args[0]
-        self.assertEqual(request.get_header("Accept-encoding"), "identity")
+        self.assertEqual(request.get_header("Accept-encoding"), "gzip, deflate")
+
+    @patch("urlscanx.api.urlopen")
+    def test_gzip_response_is_decompressed(self, mocked_urlopen):
+        import gzip
+
+        mocked_urlopen.return_value = _FakeResponse(
+            gzip.compress(b"<form></form>"),
+            {"Content-Encoding": "gzip"},
+        )
+        self.assertEqual(_get("/dom/test/", "key"), b"<form></form>")
+
+    @patch("urlscanx.api.urlopen")
+    def test_deflate_response_is_decompressed(self, mocked_urlopen):
+        import zlib
+
+        mocked_urlopen.return_value = _FakeResponse(
+            zlib.compress(b"<form></form>"),
+            {"Content-Encoding": "deflate"},
+        )
+        self.assertEqual(_get("/dom/test/", "key"), b"<form></form>")
