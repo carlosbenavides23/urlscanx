@@ -1,6 +1,6 @@
 # urlscanx
 
-A small CLI for inspecting and comparing completed urlscan.io scans. It fetches the full Result API response and prints a readable summary.
+A small CLI for inspecting and comparing completed urlscan.io scans. It fetches the Result API response and, when available, the DOM for form analysis.
 
 ## Install
 
@@ -39,7 +39,7 @@ urlscanx compare <scan1> <scan2>
 
 ## Saving scans
 
-Nothing is persisted by default. `--save` creates `urlscanx-output/<UUID>/` with `result.json`, `report.txt`, `dom.html`, and `screenshot.png`. If the DOM or screenshot is unavailable, saving fails without creating the directory.
+Nothing is persisted by default. `--save` creates `urlscanx-output/<UUID>/` with `result.json` and `report.txt`, plus `dom.html` and `screenshot.png` when urlscan has those assets available.
 
 ## License
 
