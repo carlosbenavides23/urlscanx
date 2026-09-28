@@ -58,7 +58,7 @@ def api_key() -> str:
     return key
 
 
-def _get(path: str, key: str) -> bytes:
+def _get(path: str, key: str, *, allow_not_found: bool = False) -> bytes | None:
     request = Request(
         f"{BASE}{path}",
         headers={"api-key": key, "User-Agent": f"urlscanx/{__version__}", "Accept": "*/*"},
@@ -68,6 +68,8 @@ def _get(path: str, key: str) -> bytes:
             with urlopen(request, timeout=20) as response:
                 return response.read()
         except HTTPError as exc:
+            if exc.code == 404 and allow_not_found:
+                return None
             if exc.code in (429, 500, 502, 503, 504) and attempt < 2:
                 time.sleep(2**attempt)
                 continue
@@ -88,6 +90,7 @@ def _get(path: str, key: str) -> bytes:
 
 def fetch_result(scan_id: str, key: str) -> dict:
     raw = _get(f"/api/v1/result/{scan_id}/", key)
+    assert raw is not None
     try:
         data = json.loads(raw)
     except (ValueError, UnicodeDecodeError) as exc:
@@ -97,9 +100,9 @@ def fetch_result(scan_id: str, key: str) -> dict:
     return data
 
 
-def fetch_asset(scan_id: str, kind: str, key: str) -> bytes:
+def fetch_asset(scan_id: str, kind: str, key: str, *, optional: bool = False) -> bytes | None:
     if kind == "dom":
-        return _get(f"/dom/{scan_id}/", key)
+        return _get(f"/dom/{scan_id}/", key, allow_not_found=optional)
     if kind == "screenshot":
-        return _get(f"/screenshots/{scan_id}.png", key)
+        return _get(f"/screenshots/{scan_id}.png", key, allow_not_found=optional)
     raise ValueError("Unknown asset kind")
