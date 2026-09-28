@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from html.parser import HTMLParser
 from urllib.parse import urlsplit
 
 
@@ -28,11 +29,58 @@ def hostname(value: str) -> str:
         return ""
 
 
+class _FormParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.forms: list[dict[str, object]] = []
+        self._stack: list[dict[str, object]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = {key.lower(): value or "" for key, value in attrs}
+        if tag.lower() == "form":
+            form: dict[str, object] = {
+                "method": values.get("method", "get").upper(),
+                "action": values.get("action", ""),
+                "name": values.get("name", ""),
+                "id": values.get("id", ""),
+                "inputs": [],
+            }
+            self.forms.append(form)
+            self._stack.append(form)
+        elif tag.lower() in ("input", "textarea", "select", "button") and self._stack:
+            field = {
+                "tag": tag.lower(),
+                "name": values.get("name", ""),
+                "type": values.get("type", "") or ("textarea" if tag.lower() == "textarea" else ""),
+                "id": values.get("id", ""),
+                "autocomplete": values.get("autocomplete", ""),
+            }
+            inputs = self._stack[-1]["inputs"]
+            if isinstance(inputs, list):
+                inputs.append(field)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.lower() == "form" and self._stack:
+            self._stack.pop()
+
+
+def parse_forms(dom: bytes | str | None) -> list[dict[str, object]]:
+    if dom is None:
+        return []
+    try:
+        text = dom.decode("utf-8", errors="replace") if isinstance(dom, bytes) else dom
+        parser = _FormParser()
+        parser.feed(text)
+        return parser.forms
+    except (UnicodeError, ValueError):
+        return []
+
+
 def iocs(result: dict) -> dict[str, list[str]]:
     lists = obj(result.get("lists"))
     task = obj(result.get("task"))
     page = obj(result.get("page"))
-    requests = items(obj(result.get("data")).get("requests"))
+    request_entries = items(obj(result.get("data")).get("requests"))
     domains = set(unique(lists.get("domains")))
     ips = set(unique(lists.get("ips")))
     urls = set(unique(lists.get("urls")))
@@ -45,7 +93,7 @@ def iocs(result: dict) -> dict[str, list[str]]:
     for value in (task.get("url"), page.get("url")):
         if isinstance(value, str) and value:
             urls.add(value)
-    for entry in requests:
+    for entry in request_entries:
         request = obj(obj(entry).get("request"))
         response = obj(obj(entry).get("response"))
         for value in (request.get("url"), obj(request.get("request")).get("url")):
@@ -54,6 +102,9 @@ def iocs(result: dict) -> dict[str, list[str]]:
         ip = response.get("remoteIPAddress") or obj(response.get("response")).get("remoteIPAddress")
         if isinstance(ip, str) and ip:
             ips.add(ip)
+        digest = string(response.get("hash"))
+        if digest:
+            hashes.add(digest)
     if isinstance(page.get("ip"), str) and page["ip"]:
         ips.add(page["ip"])
     for url in urls:
@@ -77,7 +128,7 @@ def requests(result: dict) -> list[dict[str, str]]:
         output.append({
             "method": string(request.get("method") or nested.get("method") or "GET"),
             "status": string(response.get("status") or response_data.get("status") or "-"),
-            "type": string(entry.get("type") or request.get("type") or "-"),
+            "type": string(entry.get("type") or request.get("type") or response.get("type") or "-"),
             "url": url,
         })
     return output
@@ -127,7 +178,19 @@ def format_requests(result: dict, limit: int | None = None) -> str:
     ], limit))
 
 
-def format_report(result: dict, scan_id: str) -> str:
+def _format_redirect(value: object) -> str:
+    if isinstance(value, str):
+        return value
+    entry = obj(value)
+    source = string(entry.get("from") or entry.get("source") or entry.get("url"))
+    target = string(entry.get("to") or entry.get("target") or entry.get("location"))
+    status = string(entry.get("status") or entry.get("statusCode"))
+    if source and target:
+        return f"{source} -> {target}" + (f" ({status})" if status else "")
+    return target or source or string(value)
+
+
+def format_report(result: dict, scan_id: str, dom: bytes | str | None = None) -> str:
     task = obj(result.get("task"))
     page = obj(result.get("page"))
     data = obj(result.get("data"))
@@ -161,14 +224,46 @@ def format_report(result: dict, scan_id: str) -> str:
     lines.extend(format_requests(result, 30).splitlines())
     xhr = [entry["url"] for entry in requests(result) if entry["type"].lower() in ("xhr", "fetch")]
     lines.extend(_section("XHR/fetch endpoints", sorted(set(xhr)), 30))
-    forms = items(data.get("forms"))
-    lines.extend(_section("Forms", [string(obj(form).get("action") or obj(form).get("url")) or "(no action)" for form in forms], 30))
-    fields = []
-    for form in forms:
-        for field in items(obj(form).get("inputs") or obj(form).get("fields")):
+
+    globals_ = []
+    for entry in items(data.get("globals")):
+        if isinstance(entry, dict):
+            prop = string(entry.get("prop") or entry.get("name"))
+            kind = string(entry.get("type"))
+            if prop:
+                globals_.append(f"{kind}| {prop}" if kind else prop)
+        elif isinstance(entry, str):
+            globals_.append(entry)
+    lines.extend(_section("JavaScript globals", sorted(set(globals_)), 30))
+
+    redirects = [_format_redirect(value) for value in items(data.get("redirects"))]
+    lines.extend(_section("Redirects", [value for value in redirects if value], 30))
+    lines.extend(_section("Identifiers", unique(data.get("identifiers")), 30))
+
+    forms = parse_forms(dom)
+    form_lines = []
+    field_lines = []
+    for index, form in enumerate(forms, 1):
+        method = string(form.get("method")) or "GET"
+        action = string(form.get("action")) or "(current URL)"
+        name = string(form.get("name")) or string(form.get("id"))
+        suffix = f" [{name}]" if name else ""
+        form_lines.append(f"{index}. {method} {action}{suffix}")
+        for field in items(form.get("inputs")):
             field = obj(field)
-            fields.append(" ".join(part for part in (string(field.get("name")), string(field.get("type"))) if part) or "(unnamed)")
-    lines.extend(_section("Form input fields", fields, 30))
+            label = string(field.get("name")) or string(field.get("id")) or "(unnamed)"
+            kind = string(field.get("type")) or string(field.get("tag")) or "field"
+            extras = []
+            if string(field.get("id")) and string(field.get("id")) != label:
+                extras.append(f"id={string(field.get('id'))}")
+            if string(field.get("autocomplete")):
+                extras.append(f"autocomplete={string(field.get('autocomplete'))}")
+            field_lines.append(f"form {index}: {label} ({kind})" + (f" [{', '.join(extras)}]" if extras else ""))
+    lines.extend(_section("Forms", form_lines, 30))
+    lines.extend(_section("Form input fields", field_lines, 50))
+    if dom is None:
+        lines.append("Form analysis note: DOM snapshot unavailable or not requested.")
+
     cookies = []
     for cookie in items(data.get("cookies")):
         cookie = obj(cookie)
@@ -183,6 +278,8 @@ def format_report(result: dict, scan_id: str) -> str:
         details = obj(message.get("message")) or message
         text = string(details.get("text"))
         if text:
-            console.append(f"{string(details.get('level')) or 'log'}: {text}")
+            url = string(details.get("url"))
+            suffix = f" [{url}]" if url else ""
+            console.append(f"{string(details.get('level')) or 'log'}: {text}{suffix}")
     lines.extend(_section("Console messages", console, 30))
     return "\n".join(lines)
