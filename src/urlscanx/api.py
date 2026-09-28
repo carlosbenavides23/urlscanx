@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import gzip
 import json
 import os
 import re
 import socket
+import zlib
 import time
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
@@ -71,7 +73,21 @@ def _get(path: str, key: str, *, allow_not_found: bool = False) -> bytes | None:
     for attempt in range(3):
         try:
             with urlopen(request, timeout=20) as response:
-                return response.read()
+                raw = response.read()
+                encoding = response.headers.get("Content-Encoding", "").strip().lower()
+                if encoding in ("", "identity"):
+                    return raw
+                if encoding == "gzip":
+                    try:
+                        return gzip.decompress(raw)
+                    except OSError as exc:
+                        raise ScanError("urlscan returned invalid gzip-compressed data.") from exc
+                if encoding == "deflate":
+                    try:
+                        return zlib.decompress(raw)
+                    except zlib.error as exc:
+                        raise ScanError("urlscan returned invalid deflate-compressed data.") from exc
+                raise ScanError(f"urlscan returned unsupported content encoding: {encoding}.")
         except HTTPError as exc:
             if exc.code == 404 and allow_not_found:
                 return None

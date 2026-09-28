@@ -9,7 +9,19 @@ from urlscanx.cli import main
 SCAN = "01a0e84d-e186-775a-b6b8-ec96c96fccf0"
 
 
+class _Headers:
+    def __init__(self, values=None):
+        self.values = values or {}
+
+    def get(self, key, default=None):
+        return self.values.get(key, default)
+
+
 class _FakeResponse:
+    def __init__(self, body=b"ok", headers=None):
+        self.body = body
+        self.headers = _Headers(headers)
+
     def __enter__(self):
         return self
 
@@ -17,7 +29,7 @@ class _FakeResponse:
         return False
 
     def read(self):
-        return b"ok"
+        return self.body
 
 
 class InputTests(unittest.TestCase):
