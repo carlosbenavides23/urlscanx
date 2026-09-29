@@ -32,14 +32,20 @@ urlscanx <scan> --iocs
 urlscanx <scan> --requests
 urlscanx <scan> --json
 urlscanx <scan> --save
+urlscanx <scan> --verbose
 urlscanx compare <scan1> <scan2>
 ```
 
 `<scan>` is a UUID or `https://urlscan.io/result/<UUID>/`.
 
+Human-readable views shorten long values and redact likely URL credentials with a short SHA-256 fingerprint. `--verbose` shows all console messages (or all comparison entries). `--json` and saved `result.json` keep the complete API response.
+
+Comparison labels use observed request methods, form actions, and resource types. They describe technical context, not attribution.
+
 ## Saving scans
 
 Nothing is persisted by default. `--save` creates `urlscanx-output/<UUID>/` with `result.json` and `report.txt`, plus `dom.html` and `screenshot.png` when urlscan has those assets available.
+Saved `result.json` and `dom.html` retain raw evidence, including any sensitive values present in the scan.
 
 ## License
 

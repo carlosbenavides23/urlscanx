@@ -17,6 +17,7 @@ SCAN = "01a0e84d-e186-775a-b6b8-ec96c96fccf0"
 class ApiTests(unittest.TestCase):
     def test_malformed_api_response(self):
         with patch("urlscanx.api.urlopen") as urlopen:
+            urlopen.return_value.__enter__.return_value.headers.get.return_value = ""
             urlopen.return_value.__enter__.return_value.read.return_value = b"[]"
             with self.assertRaisesRegex(ScanError, "unexpected result format"):
                 fetch_result(SCAN, "key")
@@ -32,19 +33,17 @@ class ApiTests(unittest.TestCase):
             with self.assertRaisesRegex(ScanError, "Could not connect"):
                 fetch_result(SCAN, "key")
 
-    def test_save_only_after_assets_exist(self):
+    def test_save_preserves_raw_result_and_optional_assets(self):
         with tempfile.TemporaryDirectory() as root:
             old = os.getcwd()
             os.chdir(root)
             try:
-                with patch("urlscanx.cli.fetch_asset", side_effect=ScanError("unavailable")):
-                    with self.assertRaises(ScanError):
-                        save_scan(SCAN, {"task": {}}, "report", "key")
-                self.assertFalse(Path("urlscanx-output").exists())
-                with patch("urlscanx.cli.fetch_asset", side_effect=[b"<html></html>", b"\x89PNG\r\n\x1a\nDATA"]):
-                    output = save_scan(SCAN, {"task": {}}, "report", "key")
+                source = {"task": {"url": "https://example.test/?token=secret"}}
+                output, warnings = save_scan(SCAN, source, "redacted report", b"<html></html>", b"\x89PNG\r\n\x1a\nDATA")
+                self.assertEqual(warnings, [])
                 self.assertEqual({path.name for path in output.iterdir()},
                                  {"result.json", "report.txt", "dom.html", "screenshot.png"})
-                self.assertEqual(json.loads((output / "result.json").read_text()), {"task": {}})
+                self.assertEqual(json.loads((output / "result.json").read_text()), source)
+                self.assertEqual((output / "report.txt").read_text().strip(), "redacted report")
             finally:
                 os.chdir(old)

@@ -63,11 +63,20 @@ def main(argv: list[str] | None = None) -> int:
         compare_parser = argparse.ArgumentParser(prog="urlscanx compare", description="Compare two urlscan results.")
         compare_parser.add_argument("scan1")
         compare_parser.add_argument("scan2")
+        compare_parser.add_argument("--verbose", action="store_true", help="show all comparison entries")
         args = compare_parser.parse_args(argv[1:])
         try:
             first_id, second_id = parse_scan(args.scan1), parse_scan(args.scan2)
             key = api_key()
-            print(format_comparison(fetch_result(first_id, key), fetch_result(second_id, key), first_id, second_id))
+            first, second = fetch_result(first_id, key), fetch_result(second_id, key)
+            doms = []
+            for scan_id in (first_id, second_id):
+                try:
+                    doms.append(fetch_asset(scan_id, "dom", key, optional=True))
+                except ScanError:
+                    # Result-only comparisons remain usable when a DOM asset is inaccessible.
+                    doms.append(None)
+            print(format_comparison(first, second, first_id, second_id, doms[0], doms[1], verbose=args.verbose))
             return 0
         except ScanError as exc:
             print(f"urlscanx: {exc}", file=sys.stderr)
@@ -82,6 +91,7 @@ def main(argv: list[str] | None = None) -> int:
     modes.add_argument("--iocs", action="store_true", help="print only indicators")
     modes.add_argument("--requests", action="store_true", help="print compact HTTP requests")
     parser.add_argument("--save", action="store_true", help="save JSON, report, DOM, and screenshot when available")
+    parser.add_argument("--verbose", action="store_true", help="show all console messages in the report")
     args = parser.parse_args(argv)
     try:
         scan_id = parse_scan(args.scan)
@@ -91,7 +101,7 @@ def main(argv: list[str] | None = None) -> int:
         need_dom = (not args.json and not args.iocs and not args.requests) or args.save
         dom = fetch_asset(scan_id, "dom", key, optional=True) if need_dom else None
         screenshot = fetch_asset(scan_id, "screenshot", key, optional=True) if args.save else None
-        report = format_report(result, scan_id, dom)
+        report = format_report(result, scan_id, dom, verbose=args.verbose)
 
         if args.json:
             print(json.dumps(result, indent=2, ensure_ascii=False))
