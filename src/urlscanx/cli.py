@@ -10,7 +10,7 @@ import tempfile
 from pathlib import Path
 
 from .api import ScanError, api_key, fetch_asset, fetch_result, parse_scan
-from .compare import format_comparison
+from .compare import format_comparison, format_multi_comparison
 from .report import format_iocs, format_report, format_requests
 
 
@@ -60,23 +60,40 @@ def save_scan(
 def main(argv: list[str] | None = None) -> int:
     argv = sys.argv[1:] if argv is None else argv
     if argv and argv[0] == "compare":
-        compare_parser = argparse.ArgumentParser(prog="urlscanx compare", description="Compare two urlscan results.")
-        compare_parser.add_argument("scan1")
-        compare_parser.add_argument("scan2")
+        compare_parser = argparse.ArgumentParser(prog="urlscanx compare", description="Compare two or more urlscan results.")
+        compare_parser.add_argument("scans", nargs="+", help="scan UUIDs or result URLs")
+        compare_parser.add_argument("--min-shared", type=int, default=2, metavar="N",
+                                    help="minimum scan presence for shared groups (2 to scan count; unique sections remain)")
         compare_parser.add_argument("--verbose", action="store_true", help="show all comparison entries")
         args = compare_parser.parse_args(argv[1:])
+        if len(args.scans) < 2:
+            compare_parser.error("at least two scans are required")
+        if not 2 <= args.min_shared <= len(args.scans):
+            compare_parser.error("--min-shared must be between 2 and the number of scans")
         try:
-            first_id, second_id = parse_scan(args.scan1), parse_scan(args.scan2)
+            scan_ids = [parse_scan(scan) for scan in args.scans]
+            if len(scan_ids) > 2 and len(set(scan_ids)) != len(scan_ids):
+                compare_parser.error("multi-scan comparison requires distinct scan IDs")
             key = api_key()
-            first, second = fetch_result(first_id, key), fetch_result(second_id, key)
+            results = []
+            for scan_id in scan_ids:
+                try:
+                    results.append(fetch_result(scan_id, key))
+                except ScanError as exc:
+                    if len(scan_ids) > 2:
+                        raise ScanError(f"Scan {scan_id}: {exc}", exit_code=exc.exit_code) from exc
+                    raise
             doms = []
-            for scan_id in (first_id, second_id):
+            for scan_id in scan_ids:
                 try:
                     doms.append(fetch_asset(scan_id, "dom", key, optional=True))
                 except ScanError:
                     # Result-only comparisons remain usable when a DOM asset is inaccessible.
                     doms.append(None)
-            print(format_comparison(first, second, first_id, second_id, doms[0], doms[1], verbose=args.verbose))
+            if len(scan_ids) == 2:
+                print(format_comparison(*results, *scan_ids, *doms, verbose=args.verbose))
+            else:
+                print(format_multi_comparison(results, scan_ids, doms, min_shared=args.min_shared, verbose=args.verbose))
             return 0
         except ScanError as exc:
             print(f"urlscanx: {exc}", file=sys.stderr)

@@ -34,6 +34,9 @@ urlscanx <scan> --json
 urlscanx <scan> --save
 urlscanx <scan> --verbose
 urlscanx compare <scan1> <scan2>
+urlscanx compare <scan1> <scan2> <scan3>
+urlscanx compare <scan1> <scan2> <scan3> <scan4> <scan5> --min-shared 3
+urlscanx compare <scan1> <scan2> <scan3> --verbose
 ```
 
 `<scan>` is a UUID or `https://urlscan.io/result/<UUID>/`.
@@ -41,6 +44,20 @@ urlscanx compare <scan1> <scan2>
 Human-readable views shorten long values and redact likely URL credentials with a short SHA-256 fingerprint. `--verbose` shows all console messages (or all comparison entries). `--json` and saved `result.json` keep the complete API response.
 
 Comparison labels use observed request methods, form actions, and resource types. They describe technical context, not attribution.
+
+Two scans retain the existing A/B comparison, categorized overlap, and title/IP matches.
+Three or more distinct scans use a prevalence report for domains, IPs, URLs, hashes,
+technologies, external endpoints, and submission endpoints. Each exact source value
+counts once per scan, even if it occurs repeatedly. The report lists artifacts shared
+by all scans, subset groups such as `3/5` with scan membership, and per-scan unique artifacts.
+Values are compared before display redaction or shortening.
+
+`--min-shared N` filters shared groups (default `2`; valid range `2` through the scan count).
+Per-scan unique sections remain visible independently of this filter. Normal comparison
+sections show up to 15 entries; `--verbose` shows every entry while retaining URL
+redaction and long-value shortening. DOM assets are optional: submission endpoints
+include observed POST/PUT/PATCH requests and available POST form actions. A failed
+Result API request stops comparison and identifies the failing scan in multi-scan mode.
 
 ## Saving scans
 

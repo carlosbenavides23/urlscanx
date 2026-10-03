@@ -1,10 +1,11 @@
-"""Technical overlap and differences between two scans."""
+"""Technical overlap and differences between scans."""
 
 from __future__ import annotations
 
+from collections import Counter
 from urllib.parse import urljoin
 
-from .display import display_url, is_static_url
+from .display import display_text, display_url, is_static_url
 from .report import _section, external_endpoints, hostname, iocs, items, obj, parse_forms, requests, string, technologies
 
 
@@ -206,4 +207,91 @@ def format_comparison(
                 shown = True
         if not shown:
             lines.append("  -")
+    return "\n".join(lines)
+
+
+ARTIFACT_LABELS = {
+    "domains": "domains", "ips": "IPs", "urls": "URLs", "hashes": "hashes",
+    "technologies": "technologies", "external_endpoints": "external endpoints",
+    "submission_endpoints": "submission endpoints",
+}
+
+
+def compare_many(results: list[dict], doms: list[bytes | str | None] | None = None) -> dict:
+    """Count exact source values once per scan, retaining subset membership."""
+    if len(results) < 3:
+        raise ValueError("Multi-scan comparison requires at least three scans")
+    doms = [None] * len(results) if doms is None else doms
+    if len(doms) != len(results):
+        raise ValueError("Expected one DOM entry per scan")
+    per_scan = []
+    for result, dom in zip(results, doms):
+        artifacts = iocs(result)
+        artifacts.update(
+            technologies=technologies(result), external_endpoints=external_endpoints(result),
+            submission_endpoints=submission_endpoints(result, dom),
+        )
+        per_scan.append({key: set(values) for key, values in artifacts.items()})
+
+    shared: dict[int, dict[str, list[str]]] = {}
+    unique = [{} for _ in results]
+    presence = {}
+    for key in ARTIFACT_LABELS:
+        counts: Counter[str] = Counter()
+        for artifacts in per_scan:
+            counts.update(artifacts[key])
+        presence[key] = {
+            value: [index + 1 for index, artifacts in enumerate(per_scan) if value in artifacts[key]]
+            for value in sorted(counts)
+        }
+        for value, count in sorted(counts.items()):
+            if count >= 2:
+                shared.setdefault(count, {}).setdefault(key, []).append(value)
+        for index, artifacts in enumerate(per_scan):
+            unique[index][key] = sorted(value for value in artifacts[key] if counts[value] == 1)
+    return {"shared": shared, "unique": unique, "presence": presence}
+
+
+def format_multi_comparison(
+    results: list[dict], scan_ids: list[str], doms: list[bytes | str | None] | None = None,
+    *, min_shared: int = 2, verbose: bool = False,
+) -> str:
+    total = len(results)
+    if len(scan_ids) != total:
+        raise ValueError("Expected one ID per scan")
+    if not 2 <= min_shared <= total:
+        raise ValueError("min_shared must be between 2 and the number of scans")
+    doms = [None] * total if doms is None else doms
+    comparison = compare_many(results, doms)
+    limit = None if verbose else 15
+    lines = [f"urlscanx comparison: {total} scans"]
+    lines.extend(f"Scan {index}: {scan_id}" for index, scan_id in enumerate(scan_ids, 1))
+    missing = ", ".join(str(index) for index, dom in enumerate(doms, 1) if dom is None)
+    if missing:
+        lines.append(f"Form actions unavailable for scans {missing}; submission endpoints use observed requests where possible.")
+
+    def sections(artifacts: dict[str, list[str]], *, subset: bool = False) -> list[str]:
+        output = []
+        for key, label in ARTIFACT_LABELS.items():
+            values = []
+            for value in artifacts.get(key, []):
+                rendered = display_url(value) if key in ("urls", "external_endpoints", "submission_endpoints") else display_text(value)
+                if subset:
+                    members = ", ".join(map(str, comparison["presence"][key][value]))
+                    rendered += f" [scans {members}]"
+                values.append(rendered)
+            if values:
+                output.extend("  " + line for line in _section(label, values, limit))
+        return output or ["  -"]
+
+    lines.append(f"Shared by all scans ({total}/{total}):")
+    lines.extend(sections(comparison["shared"].get(total, {})))
+    for count in sorted(comparison["shared"], reverse=True):
+        if min_shared <= count < total:
+            lines.append(f"Present in {count}/{total} scans:")
+            lines.extend(sections(comparison["shared"][count], subset=True))
+    lines.append("Per-scan unique artifacts:")
+    for index, (scan_id, artifacts) in enumerate(zip(scan_ids, comparison["unique"]), 1):
+        lines.append(f"Scan {index} ({scan_id}):")
+        lines.extend(sections(artifacts))
     return "\n".join(lines)
