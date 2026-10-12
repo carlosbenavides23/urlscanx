@@ -10,3 +10,14 @@ venv/
 build/
 dist/
 urlscanx-output/
+
+# Local research, review notes and publication archives
+internal/
+docs/internal/
+URLSCANX_ANALYZE_FEATURE_SPEC.md
+docs/ANALYZE_MVP*.md
+docs/MVP*.md
+docs/examples/mvp-*/
+docs/examples/analyze/
+*.zip
+fixture-*.tar.gz

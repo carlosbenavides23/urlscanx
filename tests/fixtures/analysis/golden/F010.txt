@@ -1,0 +1,67 @@
+urlscanx analysis
+Scan: 019aa84d-806a-75af-b42d-141020279bcf
+Time: 2025-11-21T21:24:13.932Z
+Origin: https://www.akamai.com
+
+Analysis summary
+  Sensitive static request findings: 0 supported; inspection partial
+  Runtime-supported findings: 0 observed
+  Runtime payload structure support: 0 structurally compatible; body coverage partial
+  Interaction stage candidates: 1
+  Unresolved targets: 0 supported; inspection partial
+  TRUNCATED: JavaScript, interaction; findings and counts may be incomplete
+  Execution of static flows is not established.
+  Structural payload correlation does not establish source value equality.
+
+Analyst findings
+  Evidence synthesis; execution and source value identity not established.
+  No supported primary composed findings.
+
+Input / interaction overview
+  DOM markup: 2 forms; 35 controls
+  Controls: company 3, contact data 2, email 1, generic text 2, person name 2, phone 2, unknown 23
+  Form: markup form method GET / target https://www.akamai.com/
+  Form: markup form method GET / target https://www.akamai.com/
+  Runtime submission not established; markup handlers may override or cancel form behavior.
+  Stage candidates: 1; ordering and runtime interaction not established.
+    Stage candidate: identifier, personal information
+  Prefill: existing dom value; 25 records; path: unresolved; final submitted values unresolved
+
+Request / payload evidence summary
+  Request bodies: 2 preserved; 0 parsed; 0 empty; 2 unsupported; 0 malformed; 0 truncated; 91 unavailable
+  POST https://www.akamai.com/YoscH/Rq/-pU/Nr/HKRxlMtF/9tw7XQzQzk6fht1LJE/Zmp6JgE/Y1tY/bw8DcxI: unsupported
+    2 body records with the same protected URL / format / field structure; distinct request refs in --verbose
+
+Notable static JavaScript evidence
+  Scripts: 20 parsed, 1 skipped, 43 unavailable
+  0 static flows; 0 outside primary findings (--verbose for provenance)
+  No supported static flows observed in inspected code.
+
+Runtime observations
+  93 preserved requests: GET 91, POST 2
+  Repeated endpoint: 2 requests; GET 2
+    https://www.akamai.com/site/fonts/icomoon.woff2
+  Repeated endpoint: 2 requests; GET 2
+    https://content.akamai.com/js/forms2/js/forms2.min.js
+  Repeated endpoint: 3 requests; GET 1, POST 2
+    https://www.akamai.com/YoscH/Rq/-pU/Nr/HKRxlMtF/9tw7XQzQzk6fht1LJE/Zmp6JgE/Y1tY/bw8DcxI
+  Repeated endpoint: 2 requests; GET 2
+    https://www.akamai.com/site/geolocation.geoinfo.json?country-code=[omitted]&continent=[omitted]
+  WebSocket: not observed (0 preserved)
+  cookies: 13 snapshot entries; values omitted
+  storages: 0 snapshot entries; values omitted
+
+Coverage / limitations
+  requests: complete; 93 preserved records
+  dom: complete; 35 markup controls
+  javascript: truncated; 64 script records
+    Limited static syntax and local flow subset; execution not performed
+  request bodies: partial; 2 preserved bodies
+    Body not preserved does not establish an empty body; only bounded structure inspected
+  interaction: truncated; 1 stage candidates
+    Bounded static declarations; snapshot and network do not establish interaction execution
+  findings: partial; 0 composed findings
+    synthesis complete within its budget; lower-layer inspection partial
+    Read-only bounded evidence synthesis; execution and value identity unresolved
+  not observed != does not exist
+  JavaScript not executed; local static flows do not establish submission or receipt.

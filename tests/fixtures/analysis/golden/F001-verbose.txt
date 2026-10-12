@@ -1,0 +1,2228 @@
+urlscanx analysis
+Scan: 01a0fdb8-49c1-736c-8b74-e2263e77019d
+Time: 2026-10-02T17:45:13.767Z
+Origin: https://secure-hub-eir.pages.dev
+
+Analysis summary
+  Sensitive static request findings: 1 supported; inspection partial
+  Runtime-supported findings: 0 observed
+  Runtime payload structure support: unavailable
+  Interaction stage candidates: 1
+  Unresolved targets: 0 supported; inspection partial
+  TRUNCATED: JavaScript, JavaScript path analysis; findings and counts may be incomplete
+  Execution of static flows is not established.
+  Structural payload correlation does not establish source value equality.
+
+Analyst findings
+  Evidence synthesis; execution and source value identity not established.
+  1. password-semantic input, username-semantic input: static request flow
+    password-semantic input, username-semantic input
+      -> json; channel: body
+      -> POST https://secure-hub-eir.pages.dev/api/collect
+    static serialized fields: $.email, $.password
+    static path: unresolved (unresolved)
+    evidence: unresolved
+    execution context: function declared only; flow execution: not established
+    runtime request: not observed
+    runtime payload structure: unavailable; value relationship: unresolved
+    stage association: identifier, password; stage execution not established
+    ID: finding-427a4e9c9a3e7a14e7c2
+    Kind: sensitive_input_to_request
+    source_refs: js-sources-716ef928cbe46441533d, js-sources-f8bc4c4ad6db03f0887b
+    dom_control_refs: control-2788f39069767c1dceb8, control-f41cd3244197252ee7f6
+    static_flow_refs: js-flow-a3cf641c8632e25640d3, js-flow-f46a7a6706aacd88207b
+    sink_refs: js-sinks-b51bbd177a9c11a31dc5
+    path_condition_refs: js-predicate-134a0ceccabd7bd70f68, js-predicate-405c2365402115f2497d,
+      js-predicate-92aec1125a3d9a971f34
+    runtime_correlation_refs: js-correlation-d5c8ce676812bb47cd25
+    request_refs: none
+    payload_correlation_refs: payload-correlation-1bb705dd7675d1c0553d,
+      payload-correlation-c6d49c7bc556181d0551
+    runtime_payload_refs: none
+    runtime_field_refs: none
+    evidence_refs: e-1c000a427ca3b4be5031, e-2366c09466e3162c212f, e-46cd1fc840e67875a301,
+      e-501034d88a2cad6f6ca2, e-5146618b0ee5e23d3d70, e-53217ed5fa30db5263e8, e-551e93e8f7ff8f281952,
+      e-605a91c77cd2c548404e, e-688d2f217682632db825, e-74d9701b7da33aac46b8, e-836b6df00177c2b08e3d,
+      e-9305142817fef9d6c72d, e-a4f43e48eadfdf463b96, e-bdfb3f91acc7db467929, e-be4dba72a7e511bee06d,
+      e-c339414a6a5bd4ec0bc7, e-d08cb0d9028ef19ec9e8, e-d0d73f2b07367602e52f, e-eff17f8668b754995535
+    path variant: js-flow-a3cf641c8632e25640d3; unresolved; predicates: js-predicate-92aec1125a3d9a971f34,
+      js-predicate-134a0ceccabd7bd70f68, js-predicate-405c2365402115f2497d; calls: none
+      transforms: js-transforms-11888776517f89d3d807, js-transforms-8457fc71a1125db74f51,
+        js-transforms-56b2f75af162c10d801b, js-transforms-09750e2270f516846048,
+        js-transforms-67618dcfcbb836186216
+    path variant: js-flow-f46a7a6706aacd88207b; unresolved; predicates: js-predicate-92aec1125a3d9a971f34,
+      js-predicate-134a0ceccabd7bd70f68, js-predicate-405c2365402115f2497d; calls: none
+      transforms: js-transforms-9e961383e655e1258225, js-transforms-ce8df96a663d69dc6651,
+        js-transforms-49bce2a10be51c501714, js-transforms-56b2f75af162c10d801b,
+        js-transforms-09750e2270f516846048, js-transforms-67618dcfcbb836186216
+    stage_refs: stage-271033e061e24ca14657
+    prefill_refs: none
+    retry_refs: none
+    navigation_refs: none
+    handler_refs: none
+    mutation_refs: none
+    limitations: flow_execution_not_established, path_unresolved, payload_value_relationship_unresolved,
+      runtime_body_unavailable, stage_execution_not_established
+
+DOM markup: 1 forms; 3 controls
+  Visibility and submission are not established.
+
+Semantic controls
+  Credentials / identifiers: password 1, username 1
+    username: emailInput; HTML email; form=ancestor
+      Local support: autocomplete
+    password: passwordInput; HTML password; form=ancestor
+      Local support: type
+  Contact / other: generic_text 1
+    generic_text: (unnamed); HTML text; form=none
+      Local support: unresolved
+
+Forms (HTML markup only)
+  loginForm: markup form method GET / target https://secure-hub-eir.pages.dev/
+    Associated controls: 2; submit controls: 1
+  Runtime submission not established; client-side handlers may override/cancel markup behavior.
+
+Network behavior
+  Methods: GET 16, POST 1
+  [observed/network_request] Repeated endpoint: 2 requests
+    https://c.s-microsoft.com/favicon.ico?v2=[omitted]
+    GET 2; status unknown 2
+    Captured span: 0.321 s; long-term cadence unresolved
+    Refs: /data/requests/15, /data/requests/16
+  WebSocket: not observed in preserved websocket records (0 captured entries)
+
+JavaScript static analysis
+  Scripts: 4 parsed, 12 unavailable
+  Helpers: 26 indexed; calls: 11 resolved, 80 unresolved; depth limit: 3
+  Path analysis truncated; local static facts retained with incomplete viability.
+    Reasons: path variant budget
+  Static flows:
+    Static flows with unresolved viability:
+    username: DOM control emailInput -> fetch POST https://secure-hub-eir.pages.dev/api/collect
+      Transforms: trim -> variable_alias -> property email -> object_construction -> JSON.stringify ->
+        property body
+      Static payload structure: json; $.email, $.password, $.ip, $.userAgent
+      state: static_flow_inferred; runtime endpoint: not_observed; payload relationship unresolved
+      static path: unresolved
+      condition: !(submitBtn) == false (unresolved); literals omitted
+      condition: !(email) == false (unresolved); literals omitted
+      condition: !(password) == false (unresolved); literals omitted
+      execution context: function declared only; runtime execution: not established
+      Script js-script-5e81cf9815f15cda6c70 at 316:10; refs=e-5146618b0ee5e23d3d70, e-836b6df00177c2b08e3d,
+        e-605a91c77cd2c548404e, e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-c339414a6a5bd4ec0bc7,
+        e-1c000a427ca3b4be5031, e-bdfb3f91acc7db467929, e-d08cb0d9028ef19ec9e8, e-46cd1fc840e67875a301,
+        e-688d2f217682632db825, e-74d9701b7da33aac46b8, e-53217ed5fa30db5263e8, e-9305142817fef9d6c72d
+    password: DOM control passwordInput -> fetch POST https://secure-hub-eir.pages.dev/api/collect
+      Transforms: variable_alias -> property password -> object_construction -> JSON.stringify -> property
+        body
+      state: static_flow_inferred; runtime endpoint: not_observed; payload relationship unresolved
+      static path: unresolved
+      condition: !(submitBtn) == false (unresolved); literals omitted
+      condition: !(email) == false (unresolved); literals omitted
+      condition: !(password) == false (unresolved); literals omitted
+      execution context: function declared only; runtime execution: not established
+      Script js-script-5e81cf9815f15cda6c70 at 316:10; refs=e-d0d73f2b07367602e52f, e-eff17f8668b754995535,
+        e-605a91c77cd2c548404e, e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-c339414a6a5bd4ec0bc7,
+        e-1c000a427ca3b4be5031, e-2366c09466e3162c212f, e-551e93e8f7ff8f281952, e-688d2f217682632db825,
+        e-74d9701b7da33aac46b8, e-53217ed5fa30db5263e8, e-9305142817fef9d6c72d
+    browser_context: browser_context -> fetch POST https://secure-hub-eir.pages.dev/api/collect
+      Transforms: property userAgent -> object_construction -> JSON.stringify -> property body
+      state: static_flow_inferred; runtime endpoint: not_observed; payload relationship unresolved
+      static path: unresolved
+      condition: !(submitBtn) == false (unresolved); literals omitted
+      condition: !(email) == false (unresolved); literals omitted
+      condition: !(password) == false (unresolved); literals omitted
+      execution context: function declared only; runtime execution: not established
+      Script js-script-5e81cf9815f15cda6c70 at 316:10; refs=e-45dcfe101226f7596892, e-be4dba72a7e511bee06d,
+        e-a4f43e48eadfdf463b96, e-c339414a6a5bd4ec0bc7, e-1c000a427ca3b4be5031, e-605a91c77cd2c548404e,
+        e-8cdef38f8e5e2526da4b, e-688d2f217682632db825, e-74d9701b7da33aac46b8, e-53217ed5fa30db5263e8,
+        e-9305142817fef9d6c72d
+  Other declared sinks:
+    fetch POST (target unresolved); static path: unresolved; runtime endpoint: unresolved
+    fetch GET https://api.ipify.org?format=[omitted]; static path: unresolved; runtime endpoint: not_observed
+    browser_storage_write  (target unresolved); static path: unresolved; runtime endpoint: unresolved
+    fetch GET https://api.ipify.org?format=[omitted]; static path: unresolved; runtime endpoint: not_observed
+    browser_storage_write  (target unresolved); static path: conditional; runtime endpoint: unresolved
+    fetch HEAD https://secure-hub-eir.pages.dev/api/user/me; static path: conditional; runtime endpoint:
+      not_observed
+    fetch HEAD https://secure-hub-eir.pages.dev/api/files/count; static path: conditional; runtime endpoint:
+      not_observed
+  Call js-call_edges-d772c01bbf3c9b1e0677: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-41511b6a669c23d9cd6c: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-823005088597a1ea0e08: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-16d024bc4fe9f6e86c9d: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-69aa4724cef212e30a6c: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-bbec9cfdd4754ff0d6b9: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-620b4fd5fa5d014a9203: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-711c671ecf7e1cd357ea: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-4968f674fae784569e01: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-37e14934bb1dce9180eb: resolved / unresolved; complex control, async, generator, spread or
+    non-positional parameters unsupported
+  Call js-call_edges-026713a1cdb397c940a7: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-a28abff6fca1f6206090: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-fb017911867be263dd82: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-2be516dcc270d85f8158: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-826b0efb37fdd74e2412: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-3441bb3dad9cdca105f9: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-497c062964650f443cc2: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-599b75c3e825774499d9: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-6cfdb402cd332f472179: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-eeabb0fd8781957759a6: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-1df06c9050ca317a8b94: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-e211c9297b32a2cc761b: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-1f70145c6b4d86a879d0: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-c141a149397bcfd417e9: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-afeb04a2d1d9c40c0719: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-829740252cccdfdd6bb7: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-56a4cc027ea50e4fecc1: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-91e85a38828fc0903cb9: resolved / unresolved; complex control, async, generator, spread or
+    non-positional parameters unsupported
+  Call js-call_edges-9dc5a6d159b2f98554a0: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-8cc5a4abc13471edc4a3: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-56df67434733847037a7: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-3477219581e4e60f6562: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-f33484f3f59626ebdf2b: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-78c144b03f0dc959d626: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-5d3fa91758e26a483641: resolved / unresolved; complex control, async, generator, spread or
+    non-positional parameters unsupported
+  Call js-call_edges-bbc7c46024d4a330ed99: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-feefba484429a533bed9: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-1b1965d29d185c608c69: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-b29d8ee7a6bf8eff78b5: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-c56e89c5dfc3e996fdc5: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-a944e82d8250cb034896: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-c400b15bc72e609a01fe: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-dcbd471fca1151de226b: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-3adcd87642993f858d26: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-99a5819cf169c2f56d93: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-c76d1d9d9cf9590faae9: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-1f16a8c1f88090d0535c: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-99c9bb13217b62a4bf90: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-0e79df9f137bd802f282: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-402a652a3c85ae2e0129: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-4afe92fcd318c6ed8af1: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-bb4f0eedb68c466dc579: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-6e01fe2948ab06f87ac6: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-0e3225315a8a269d869c: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-3dc2f03a71f29225d2d6: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-1551f78363c2f235e7e4: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-24a7ea2406c51cb51159: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-9c85cbeeb43ea3f81eaf: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-c1a295e96ddccbd12a71: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-09cf8973c6b04e7176fe: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-92479cf3a2aa095bd1c0: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-8c3322902862141b047e: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-ee9cbae39ef86a18067c: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-b8d31eec9b39d0eaf0fb: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-e83be8eea53dc5e828ca: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-abc995dac27aefb87751: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-4455aa71dae2c57a58c0: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-7d425fe288a94c733764: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-44898d8de8252e4867d4: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-b71b947c98549b44e77f: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-1cd50aa26d9e52bbb586: resolved / unresolved; complex control, async, generator, spread or
+    non-positional parameters unsupported
+  Call js-call_edges-474d6263a849ba5a81d6: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-11abb3b800dcdd8461d4: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-e17392c993bd49f7b41f: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-fd8a4b64e1f0231af338: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-846c58a91771f4cef1eb: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-25ddf5580d0dfcb47337: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-31736015447dd5b65f99: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-e4bce97d9ec437700c36: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-736e7a8d8ac15ccf598b: resolved / unresolved; complex control, async, generator, spread or
+    non-positional parameters unsupported
+  Call js-call_edges-e584968df4e321dc8f4c: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-3c5eb270a5b60d1a05fc: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-3837322e76a513665567: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-4c85401c09cd42e6e96e: unresolved / unresolved; unsupported or ambiguous callee identity
+  Call js-call_edges-655f95c6fd1ba3e6787e: unresolved / unresolved; unsupported or ambiguous callee identity
+  Script js-script-9253119c532730667828: unavailable; analyzed=False; execution not performed
+  Script js-script-9c142d90aed87781273e: unavailable; analyzed=False; execution not performed
+  Script js-script-4bde2e860f0cf22aeed3: unavailable; analyzed=False; execution not performed
+  Script js-script-6a723dc0f8d50d44b973: unavailable; analyzed=False; execution not performed
+  Script js-script-bf26450da5c27342acf8: unavailable; analyzed=False; execution not performed
+  Script js-script-63bd6d05ae54a5f735dc: parsed; analyzed=True; execution not performed
+  Script js-script-be167678f1db9fbb6d47: parsed; analyzed=True; execution not performed
+  Script js-script-145efb1ee4b4580929e9: unavailable; analyzed=False; execution not performed
+  Script js-script-bebbcb9882e21e56059a: parsed; analyzed=True; execution not performed
+  Script js-script-5e81cf9815f15cda6c70: parsed; analyzed=True; execution not performed
+  Script js-script-41588a624a6973096080: unavailable; analyzed=False; execution not performed
+  Script js-script-45b94a3643bc6735ab86: unavailable; analyzed=False; execution not performed
+  Script js-script-bcbc1e84b0aad398dca3: unavailable; analyzed=False; execution not performed
+  Script js-script-32d74a25c6582c2911ec: unavailable; analyzed=False; execution not performed
+  Script js-script-e83a52dc2487ee6f2ba7: unavailable; analyzed=False; execution not performed
+  Script js-script-fbd068ae5f22269b94c2: unavailable; analyzed=False; execution not performed
+  JS not executed; external unavailable scripts not fetched; only bounded explicit helpers supported.
+
+Runtime request payloads
+  17 requests inspected; 0 bodies preserved; 17 bodies unavailable; parsed 0; unsupported 0; malformed 0;
+    truncated 0
+  Not preserved != empty; field correspondence != source/value identity.
+  GET https://secure-hub-eir.pages.dev/
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/0
+  GET https://fonts.microsoft.com/css2?family=[omitted]&display=[omitted]
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/1
+  GET https://js.live.net/v7.2/OneDrive.js
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/2
+  GET https://c.microsoft.com/mscc.js
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/3
+  GET https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.6.0.min.js
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/4
+  GET https://www.clarity.ms/tag/msft1a2b3c
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/5
+  GET https://bat.bing.com/bat.js
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/6
+  GET https://res.cloudinary.com/dff0kvmck/image/upload/v1769132338/t2_1_cg1mit.jpg
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/7
+  GET https://res.cloudinary.com/dff0kvmck/image/upload/v1769132409/t1_2_n1aodc.png
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/8
+  GET https://res.cloudinary.com/dff0kvmck/image/upload/v1769132439/t3_1_nmhza7.jpg
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/9
+  GET https://res.cloudinary.com/dff0kvmck/image/upload/v1769132470/t4_2_jdptql.png
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/10
+  GET https://res.cloudinary.com/dff0kvmck/image/upload/v1769132657/example-of-template_c76kqw.png
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/11
+  GET https://bat.bing.com/p/action/17567890.js
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/12
+  POST https://bat.bing.net/actionp/0?ti=[omitted]&Ver=[omitted]&mid=[omitted]&bo=[omitted]&evt=[omitted]&src=
+    [omitted]&cdb=[omitted]&asc=[omitted]
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/13
+  GET https://bat.bing.net/action/0?ti=[…]&Ver=[…]&mid=[…]&bo=[…]&pi=[…]&lg=[…]&sw=[…]&sh=[…]&sc=[…]&tl=[…]&kw
+    =[…]&p=[…]&r=[…]&lt=[…]&evt=[…]&sv=[…]&asc=[…]&cdb=[…]&rn=[…]
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/14
+  GET https://c.s-microsoft.com/favicon.ico?v2=[omitted]
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/15
+  GET https://c.s-microsoft.com/favicon.ico?v2=[omitted]
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/16
+  Static payload $.email (username source): unresolved; runtime_request_not_uniquely_correlated
+    static path: unresolved; condition satisfaction not established; runtime execution not established; value
+      relationship unresolved
+  Static payload $.password (password source): unresolved; runtime_request_not_uniquely_correlated
+    static path: unresolved; condition satisfaction not established; runtime execution not established; value
+      relationship unresolved
+  Static payload $.userAgent (contextual source): unresolved; runtime_request_not_uniquely_correlated
+    static path: unresolved; condition satisfaction not established; runtime execution not established; value
+      relationship unresolved
+
+Interaction stages
+  Static candidates; ordering unresolved globally; runtime interaction not established.
+  1 stages; 0 transitions; 3 prefills; 0 retry paths; 0 navigations
+  Stage candidate A: identifier, password
+    controls: emailInput, passwordInput; static visibility: unresolved
+    request declaration: POST https://secure-hub-eir.pages.dev/api/collect
+    prefill: unresolved; conditional; final submitted value provenance unresolved
+      ref: interaction-prefill-a7bc003122a8c7fec5c8; evidence: e-239593bc6b206978b5ab, e-daf0d7b96306ec5ed5d1,
+        e-992342e3fe77868ad0d1
+      predicates: js-predicate-45d3f705b837c9b5eec2
+    prefill: unresolved; conditional; final submitted value provenance unresolved
+      ref: interaction-prefill-0af8f62c4dbe5bd4a439; evidence: e-bc0839f664cf69743e54, e-3458cff6f98a89cc1da8,
+        e-e83afe9ea484373d8c4d, e-ecab5e046a09b7a0ba56, e-992342e3fe77868ad0d1
+      predicates: js-predicate-c7cc12dd475150c29bd5, js-predicate-0b3657e0dc10af0166f0
+    prefill: unresolved; unresolved; final submitted value provenance unresolved
+      ref: interaction-prefill-55a2454d7335d0c4e592; evidence: e-5bd4388e6d3324a04549, e-92624b87267863e80cd3,
+        e-992342e3fe77868ad0d1
+      predicates: js-predicate-b82c1d55816c270de1b6
+    field reset declared; unresolved
+      ref: interaction-field_reset-e4a1ea222f2cf7177ee4; evidence: e-f28fd2df9e8e8b6056e8,
+        e-bcbd40f7a04011553bd2, e-992342e3fe77868ad0d1
+      predicates: js-predicate-f9d642a727b3056a4ce9
+    error_content_mutated_unresolved; conditional
+      ref: interaction-content_replacement-5e3497e61bc9f671ab4c; evidence: e-0183fecd7340008e871f,
+        e-a2e1a0a4cde6cda41340, e-1fe7349e1860d5b91011
+      predicates: js-predicate-dbfbe6f9fe759ac27ecd
+    error_content_mutated_unresolved; conditional
+      ref: interaction-content_replacement-25aed7cf63e363bcd13d; evidence: e-de09db098e57d996f013,
+        e-be4dba72a7e511bee06d, e-e6674684438ea040a789, e-cfbc85f030978a839a86, e-8be62e3987b679388c76,
+        e-fd4bd113cf99d45a7d25, e-1fe7349e1860d5b91011
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-016e3e76e9da4ab979c2,
+        js-predicate-d072a955dbe39c48ff7a
+    error_content_mutated_unresolved; conditional
+      ref: interaction-content_replacement-54e0660de7eeb552526e; evidence: e-9537a9c39a8bbc75ad8a,
+        e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-e6d6b6421d1d70cb9180, e-1c000a427ca3b4be5031,
+        e-1171d1dd60612945737d, e-f1d678ddddb17fafe5cc, e-fd4bd113cf99d45a7d25, e-1fe7349e1860d5b91011
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-134a0ceccabd7bd70f68,
+        js-predicate-9a060aedaa774595bb9e, js-predicate-dfe13da22e314314d16a
+    error_content_mutated_unresolved; conditional
+      ref: interaction-content_replacement-0f3b90e0bee29c22d530; evidence: e-59e0a146ef9e4ec5dde9,
+        e-226e13d9beca8f55c92e, e-89b9b8fbb8401f476653, e-fd4bd113cf99d45a7d25, e-1fe7349e1860d5b91011
+      predicates: js-predicate-c1e581d4207c1aeb7c6f
+    field reset declared; unconditional
+      ref: interaction-field_reset-280c168709e6792b8b9f; evidence: e-4291f9b15f47ddc5f24e,
+        e-ebdc2101b02627fc367b
+    error_content_mutated_unresolved; unresolved
+      ref: interaction-content_replacement-4f6ce680c677c54fc4a9; evidence: e-0ce475bb565e1265d5c9,
+        e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-c339414a6a5bd4ec0bc7, e-1c000a427ca3b4be5031,
+        e-16db05f227f157351a84, e-f45fab5035673c9bf8d0, e-fd4bd113cf99d45a7d25, e-1fe7349e1860d5b91011
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-134a0ceccabd7bd70f68,
+        js-predicate-405c2365402115f2497d, js-predicate-f8f3fba63a7b26412bdc
+    error_content_mutated_unresolved; conditional
+      ref: interaction-content_replacement-51db7620377b7cfbe120; evidence: e-b608efbd9454f4b6ca6e,
+        e-6c8c62c430ca6221887e, e-8ad4d9cf6e4198e15b77, e-fd4bd113cf99d45a7d25, e-1fe7349e1860d5b91011
+      predicates: js-predicate-945b79f2584e706f3c15
+    containers: e-501034d88a2cad6f6ca2; controls: control-2788f39069767c1dceb8, control-f41cd3244197252ee7f6
+    flow refs: js-flow-f46a7a6706aacd88207b, js-flow-a3cf641c8632e25640d3, js-flow-61d767eafa7d45314e54;
+      runtime correlation refs: js-correlation-d5c8ce676812bb47cd25
+    payload refs: none
+      ref: stage-271033e061e24ca14657; evidence: e-501034d88a2cad6f6ca2, e-836b6df00177c2b08e3d,
+        e-eff17f8668b754995535
+  Structural mutation: class_mutation; stage: unresolved; conditional
+      ref: interaction-class_mutation-9ef52ae020bf541411ec; evidence: e-fd6a0eef9627ab51c107,
+        e-fc1c1df0f65303145ef5, e-e10cf557a133a96c7b60, e-c7bc9cdc00409cc638f0
+      predicates: js-predicate-464e5012e16d87f71d43
+  Structural mutation: field_reset; stage: Stage candidate A; unresolved
+      ref: interaction-field_reset-e4a1ea222f2cf7177ee4; evidence: e-f28fd2df9e8e8b6056e8,
+        e-bcbd40f7a04011553bd2, e-992342e3fe77868ad0d1
+      predicates: js-predicate-f9d642a727b3056a4ce9
+  Structural mutation: class_mutation; stage: unresolved; conditional
+      ref: interaction-class_mutation-dd5f9fc1a1810f7ab178; evidence: e-eb9d95abfee97a9ef459,
+        e-d623541788153b49dff5, e-bf147dc6a541470a83a0, e-c7bc9cdc00409cc638f0
+      predicates: js-predicate-60dbeafcf3c03be5b735
+  Structural mutation: content_replacement; stage: Stage candidate A; conditional
+      ref: interaction-content_replacement-5e3497e61bc9f671ab4c; evidence: e-0183fecd7340008e871f,
+        e-a2e1a0a4cde6cda41340, e-1fe7349e1860d5b91011
+      predicates: js-predicate-dbfbe6f9fe759ac27ecd
+  Structural mutation: class_mutation; stage: Stage candidate A; conditional
+      ref: interaction-class_mutation-6ac2be561b74f3d6880c; evidence: e-5dba58ad2a27fae45c29,
+        e-a2e1a0a4cde6cda41340, e-5ac39ba272debb3146f5
+      predicates: js-predicate-dbfbe6f9fe759ac27ecd
+  Structural mutation: content_replacement; stage: Stage candidate A; conditional
+      ref: interaction-content_replacement-25aed7cf63e363bcd13d; evidence: e-de09db098e57d996f013,
+        e-be4dba72a7e511bee06d, e-e6674684438ea040a789, e-cfbc85f030978a839a86, e-8be62e3987b679388c76,
+        e-fd4bd113cf99d45a7d25, e-1fe7349e1860d5b91011
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-016e3e76e9da4ab979c2,
+        js-predicate-d072a955dbe39c48ff7a
+  Structural mutation: class_mutation; stage: Stage candidate A; conditional
+      ref: interaction-class_mutation-53202d158be1dbaf7714; evidence: e-69232182f0144c3597ec,
+        e-be4dba72a7e511bee06d, e-e6674684438ea040a789, e-cfbc85f030978a839a86, e-8be62e3987b679388c76,
+        e-fd4bd113cf99d45a7d25, e-5ac39ba272debb3146f5
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-016e3e76e9da4ab979c2,
+        js-predicate-d072a955dbe39c48ff7a
+  Structural mutation: content_replacement; stage: Stage candidate A; conditional
+      ref: interaction-content_replacement-54e0660de7eeb552526e; evidence: e-9537a9c39a8bbc75ad8a,
+        e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-e6d6b6421d1d70cb9180, e-1c000a427ca3b4be5031,
+        e-1171d1dd60612945737d, e-f1d678ddddb17fafe5cc, e-fd4bd113cf99d45a7d25, e-1fe7349e1860d5b91011
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-134a0ceccabd7bd70f68,
+        js-predicate-9a060aedaa774595bb9e, js-predicate-dfe13da22e314314d16a
+  Structural mutation: class_mutation; stage: Stage candidate A; conditional
+      ref: interaction-class_mutation-28d256ca37c17c46c617; evidence: e-ebbc71399a09e4d8744c,
+        e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-e6d6b6421d1d70cb9180, e-1c000a427ca3b4be5031,
+        e-1171d1dd60612945737d, e-f1d678ddddb17fafe5cc, e-fd4bd113cf99d45a7d25, e-5ac39ba272debb3146f5
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-134a0ceccabd7bd70f68,
+        js-predicate-9a060aedaa774595bb9e, js-predicate-dfe13da22e314314d16a
+  Structural mutation: availability_mutation; stage: Stage candidate A; conditional
+      ref: interaction-availability-184b9f1704811e952ebd; evidence: e-f5ccb16dc452f2eb43c0,
+        e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-c339414a6a5bd4ec0bc7, e-1c000a427ca3b4be5031,
+        e-671363584b585aec5931
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-134a0ceccabd7bd70f68,
+        js-predicate-405c2365402115f2497d
+  Structural mutation: content_replacement; stage: Stage candidate A; conditional
+      ref: interaction-content_replacement-6c0fd84dd44c3287db98; evidence: e-db61d80d3261dd32390f,
+        e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-c339414a6a5bd4ec0bc7, e-1c000a427ca3b4be5031,
+        e-671363584b585aec5931
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-134a0ceccabd7bd70f68,
+        js-predicate-405c2365402115f2497d
+  Structural mutation: class_mutation; stage: Stage candidate A; conditional
+      ref: interaction-class_mutation-88f09219d85aed1750d4; evidence: e-a13cef0790d683f5dfc4,
+        e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-c339414a6a5bd4ec0bc7, e-1c000a427ca3b4be5031,
+        e-671363584b585aec5931
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-134a0ceccabd7bd70f68,
+        js-predicate-405c2365402115f2497d
+  Structural mutation: content_replacement; stage: Stage candidate A; conditional
+      ref: interaction-content_replacement-0f3b90e0bee29c22d530; evidence: e-59e0a146ef9e4ec5dde9,
+        e-226e13d9beca8f55c92e, e-89b9b8fbb8401f476653, e-fd4bd113cf99d45a7d25, e-1fe7349e1860d5b91011
+      predicates: js-predicate-c1e581d4207c1aeb7c6f
+  Structural mutation: class_mutation; stage: Stage candidate A; conditional
+      ref: interaction-class_mutation-63313bed8a699c5996bd; evidence: e-66a7e3b2897da2409c4c,
+        e-226e13d9beca8f55c92e, e-89b9b8fbb8401f476653, e-fd4bd113cf99d45a7d25, e-5ac39ba272debb3146f5
+      predicates: js-predicate-c1e581d4207c1aeb7c6f
+  Structural mutation: availability_mutation; stage: Stage candidate A; unconditional
+      ref: interaction-availability-0c6a892dc12decbd13d8; evidence: e-6a3287c76e7bfdbd2bb7,
+        e-671363584b585aec5931
+  Structural mutation: content_replacement; stage: Stage candidate A; unconditional
+      ref: interaction-content_replacement-8afb217959cdb4c85273; evidence: e-b90bd3acea0fe568c2b8,
+        e-671363584b585aec5931
+  Structural mutation: class_mutation; stage: Stage candidate A; unconditional
+      ref: interaction-class_mutation-946d7cd448d6c445c937; evidence: e-b4a9bc48ebdbe58ef518,
+        e-671363584b585aec5931
+  Structural mutation: field_reset; stage: Stage candidate A; unconditional
+      ref: interaction-field_reset-280c168709e6792b8b9f; evidence: e-4291f9b15f47ddc5f24e,
+        e-ebdc2101b02627fc367b
+  Structural mutation: content_replacement; stage: Stage candidate A; unresolved
+      ref: interaction-content_replacement-4f6ce680c677c54fc4a9; evidence: e-0ce475bb565e1265d5c9,
+        e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-c339414a6a5bd4ec0bc7, e-1c000a427ca3b4be5031,
+        e-16db05f227f157351a84, e-f45fab5035673c9bf8d0, e-fd4bd113cf99d45a7d25, e-1fe7349e1860d5b91011
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-134a0ceccabd7bd70f68,
+        js-predicate-405c2365402115f2497d, js-predicate-f8f3fba63a7b26412bdc
+  Structural mutation: class_mutation; stage: Stage candidate A; unresolved
+      ref: interaction-class_mutation-2e6dcb13ede1e7de9770; evidence: e-c133d7a3e1f19bbe506b,
+        e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-c339414a6a5bd4ec0bc7, e-1c000a427ca3b4be5031,
+        e-16db05f227f157351a84, e-f45fab5035673c9bf8d0, e-fd4bd113cf99d45a7d25, e-5ac39ba272debb3146f5
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-134a0ceccabd7bd70f68,
+        js-predicate-405c2365402115f2497d, js-predicate-f8f3fba63a7b26412bdc
+  Structural mutation: availability_mutation; stage: Stage candidate A; unresolved
+      ref: interaction-availability-6a396efe72cb94b4767d; evidence: e-4e3ccb26f14d36a317d8,
+        e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-c339414a6a5bd4ec0bc7, e-1c000a427ca3b4be5031,
+        e-671363584b585aec5931
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-134a0ceccabd7bd70f68,
+        js-predicate-405c2365402115f2497d
+  Structural mutation: content_replacement; stage: Stage candidate A; unresolved
+      ref: interaction-content_replacement-c0a982b2aea77607e860; evidence: e-f453e6543133765275ef,
+        e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-c339414a6a5bd4ec0bc7, e-1c000a427ca3b4be5031,
+        e-671363584b585aec5931
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-134a0ceccabd7bd70f68,
+        js-predicate-405c2365402115f2497d
+  Structural mutation: class_mutation; stage: Stage candidate A; unresolved
+      ref: interaction-class_mutation-0c9475d76a7d36555509; evidence: e-e1705a511546ccfbf78b,
+        e-be4dba72a7e511bee06d, e-a4f43e48eadfdf463b96, e-c339414a6a5bd4ec0bc7, e-1c000a427ca3b4be5031,
+        e-671363584b585aec5931
+      predicates: js-predicate-92aec1125a3d9a971f34, js-predicate-134a0ceccabd7bd70f68,
+        js-predicate-405c2365402115f2497d
+  Structural mutation: content_replacement; stage: Stage candidate A; conditional
+      ref: interaction-content_replacement-51db7620377b7cfbe120; evidence: e-b608efbd9454f4b6ca6e,
+        e-6c8c62c430ca6221887e, e-8ad4d9cf6e4198e15b77, e-fd4bd113cf99d45a7d25, e-1fe7349e1860d5b91011
+      predicates: js-predicate-945b79f2584e706f3c15
+  Structural mutation: class_mutation; stage: Stage candidate A; conditional
+      ref: interaction-class_mutation-3f486e21a5bc26be0422; evidence: e-1b2b162772202ec199e4,
+        e-6c8c62c430ca6221887e, e-8ad4d9cf6e4198e15b77, e-fd4bd113cf99d45a7d25, e-5ac39ba272debb3146f5
+      predicates: js-predicate-945b79f2584e706f3c15
+  Structural mutation: class_mutation; stage: unresolved; conditional
+      ref: interaction-class_mutation-94e1dcb2741a8c0fea33; evidence: e-084f107b5623340ba13b,
+        e-fdbe520df9effec2890d, e-f8bf0ab363c5e9397b74, e-884d989eb4eb3a7f865f, e-8700d073cfd8aa84f47e,
+        e-c7bc9cdc00409cc638f0
+      predicates: js-predicate-203b7604c4ba84fe3425
+  DOM snapshot timing, user actions, final values and response meaning unresolved.
+
+Browser state snapshot (values omitted)
+  cookies: 0 captured entries
+  storages: 0 captured entries
+
+Brand presentation (neutral)
+  No recognized brand candidate in supported preserved signals; coverage limited.
+    document_title: (unassigned); source host=unresolved; refs=e-ba81507e950c8b3602dd
+
+Structural trust hints
+  cross_domain 8, same_origin 2
+  Different hostnames do not establish registrable-domain or provider ownership.
+  Form markup: same_origin -> https://secure-hub-eir.pages.dev; provider relationship unresolved
+  Request origin: same_origin -> https://secure-hub-eir.pages.dev; provider relationship unresolved
+  Request origin: cross_domain -> https://fonts.microsoft.com; provider relationship unresolved
+  Request origin: cross_domain -> https://js.live.net; provider relationship unresolved
+  Request origin: cross_domain -> https://c.microsoft.com; provider relationship unresolved
+  Request origin: cross_domain -> https://ajax.aspnetcdn.com; provider relationship unresolved
+  Request origin: cross_domain -> https://www.clarity.ms; provider relationship unresolved
+  Request origin: cross_domain -> https://bat.bing.com; provider relationship unresolved
+  Request origin: same_origin -> https://res.cloudinary.com; provider relationship unresolved
+  Request origin: cross_domain -> https://bat.bing.net; provider relationship unresolved
+  Request origin: cross_domain -> https://c.s-microsoft.com; provider relationship unresolved
+
+Coverage / limitations
+  result: complete
+    availability=available; inspection=complete; skipped=0
+    details: {}
+  requests: complete; 17 preserved records
+    availability=available; inspection=complete; skipped=0
+    details: {"incomplete_events": 0, "invalid_entries": 0, "normalized_events": 17}
+  redirects: complete; 0 preserved records
+    availability=available; inspection=complete; skipped=0
+    details: {"invalid_entries": 0}
+  cookies: complete; 0 preserved records
+    availability=available; inspection=complete; skipped=0
+    details: {"invalid_entries": 0}
+  storages: complete; 0 preserved records
+    availability=available; inspection=complete; skipped=0
+    details: {"invalid_entries": 0}
+  websockets: complete; 0 preserved records
+    availability=available; inspection=complete; skipped=0
+    details: {"invalid_entries": 0}
+  console: complete; 2 preserved records
+    availability=available; inspection=complete; skipped=0
+    details: {"invalid_entries": 0}
+  request payloads: unavailable
+    body visibility varies; contents and encoded entries are not interpreted
+    availability=unavailable; inspection=partial; skipped=0
+    details: {"state_counts": {"not_recorded": 16, "unavailable": 1}}
+  frames: partial; 6 request frame IDs
+    request frame IDs only; no complete frame tree or frame document contents
+    availability=available; inspection=partial; skipped=0
+    details: {"frame_ids": ["156AED4868E43345AC724CB0E9918F55", "353FE68A4D64E6FEB860AAC092BEBF63",
+      "86BA79E11F07B08CCE82042ED24BA374", "C79B09796E1C655BE78B3CF8261FBDDA",
+      "CD6D536A90031B94D2CBDA199DD2326D", "E961671F0CE9288467E39BA332A9D6BB"]}
+  dom: complete; 3 markup controls
+    availability=available; inspection=complete; skipped=0
+    details: {"forms_count": 1, "scope": "markup inventory only"}
+  external script sources: unavailable
+    external script source bytes are not supplied; URLs and response hashes are not source code
+    availability=unavailable; inspection=not_supported; skipped=0
+    details: {"markup_references": 6, "script_requests": 6}
+  javascript: truncated; 16 script records
+    Limited static syntax and local flow subset; execution not performed
+    availability=available; inspection=partial; skipped=0
+    details: {"budget_exceeded": 0, "call_sites": 91, "calls_resolved": 11, "calls_unresolved": 80,
+      "cycles_truncated": 0, "depth_limit": 3, "execution": "not_performed", "external_bodies": "unavailable",
+      "flow_scope": "bounded local helpers and ordered inline constants", "functions_indexed": 26,
+      "interprocedural_reasons": [], "interprocedural_truncated": false, "intraprocedural_analysis":
+      "partial", "parsed": 4, "path_analysis": {"branches_inspected": 58, "conditions_false": 0,
+      "conditions_true": 0, "conditions_unresolved": 58, "reasons": ["path variant budget"], "truncated":
+      true}, "runtime_correlation": {"contexts_retained": 0, "truncated_sinks": 0}, "skipped": 0,
+      "unavailable": 12, "unparsed": 0}
+  request bodies: unavailable
+    Body not preserved does not establish an empty body; only bounded structure inspected
+    availability=unavailable; inspection=partial; skipped=0
+    details: {"bodies_available": 0, "bodies_unavailable": 17, "budgets": {"array_items": 64, "body_bytes":
+      262144, "depth": 8, "fields": 256, "multipart_parts": 64, "name_chars": 80, "parameters": 256,
+      "total_body_bytes": 2097152, "total_fields": 2048}, "empty": 0, "malformed": 0, "parsed": 0,
+      "requests_inspected": 17, "truncated": 0, "unsupported": 0, "value_comparison": "not_performed",
+      "values": "omitted"}
+  interaction: partial; 1 stage candidates
+    Bounded static declarations; snapshot and network do not establish interaction execution
+    availability=available; inspection=partial; skipped=0
+    details: {"budgets": {"controls_per_stage": 32, "navigations": 64, "observations": 512, "prefills": 64,
+      "retry_paths": 32, "stages": 32, "transitions": 64}, "dom_controls_considered": 3, "dom_coverage":
+      "available", "javascript_inspection": "partial", "navigations": 0, "prefills": 3, "reasons": [],
+      "retry_paths": 0, "stage_candidates": 1, "stage_grouping": "available", "transition_analysis":
+      "available", "transitions_inferred": 0, "truncated": false}
+  findings: partial; 1 composed findings
+    synthesis complete within its budget; lower-layer inspection partial
+    Read-only bounded evidence synthesis; execution and value identity unresolved
+    availability=available; inspection=partial; skipped=0
+    details: {"budgets": {"findings": 64, "flow_variants": 16, "limitations": 16, "static_fields": 32,
+      "supporting_refs": 128}, "candidate_static_flows": 2, "deduplicated_flows": 1, "findings_emitted": 1,
+      "interaction_enriched": 1, "invalid_core_candidates": 0, "lower_static_coverage": {"availability":
+      "available", "inspection": "partial"}, "payload_enriched": 0, "reasons": [], "runtime_enriched": 0,
+      "state_counts": {"unresolved": 1}, "truncated": false}
+  Interaction coverage: {"budgets": {"controls_per_stage": 32, "navigations": 64, "observations": 512,
+    "prefills": 64, "retry_paths": 32, "stages": 32, "transitions": 64}, "dom_controls_considered": 3,
+    "dom_coverage": "available", "javascript_inspection": "partial", "navigations": 0, "prefills": 3,
+    "reasons": [], "retry_paths": 0, "stage_candidates": 1, "stage_grouping": "available",
+    "transition_analysis": "available", "transitions_inferred": 0, "truncated": false}
+  JavaScript budgets: {"abstract_value_nodes": 2000, "argument_mappings": 256, "ast_nodes_per_script": 20000,
+    "branch_depth": 8, "bytes_per_script": 131072, "call_depth": 3, "call_edges": 256, "cross_scope_steps": 8,
+    "flows": 256, "initiator_frames": 1, "nesting": 48, "operations_per_script": 40000,
+    "path_predicates_per_flow": 8, "path_variants_per_scope": 16, "path_variants_total": 256, "records": 2000,
+    "request_contexts_per_sink": 64, "request_contexts_total": 256, "resolved_invocations": 64,
+    "return_propagations": 128, "scripts": 64, "static_property_depth": 4, "string_chars": 256,
+    "tokens_per_script": 20000, "total_bytes": 524288, "transforms_per_flow": 24}
+  DOM order is not stage order; prefill is not submitted value provenance; requests do not establish stage
+    execution.
+  Markup does not establish visibility, submission, or frame/shadow document contents.
+  Client-side handlers may override or cancel markup behavior; runtime submission not established.
+  Presentation vocabulary is limited; logos/text do not establish intent, provider ownership or impersonation.
+  Request-body structure only; values, response payloads, redirect-history expansion and WebSocket messages
+    are not inspected.
+  Bounded local AST and helper dependencies only; JavaScript not executed, imports and general interprocedural
+    flows unsupported.
+  Origin and hostname relations do not establish ownership; PSL/provider registry unavailable.
+  body visibility varies; contents and encoded entries are not interpreted
+  request frame IDs only; no complete frame tree or frame document contents
+  external script source bytes are not supplied; URLs and response hashes are not source code
+  Limited static syntax and local flow subset; execution not performed
+  Body not preserved does not establish an empty body; only bounded structure inspected
+  Bounded static declarations; snapshot and network do not establish interaction execution
+
+Evidence index (derived facts only)
+  e-91811709d4e6945b71d3: provider_metadata / observed; Document URL metadata preserved
+    location: {"json_pointer": "/page/url"}
+  e-ca4a9d9e942a5a752c45: provider_metadata / observed; Result artifact available
+    location: {"json_pointer": ""}
+  e-712be60345f2a74e5d71: provider_metadata / not_observed; 0 captured redirects entries in this artifact
+    location: {"json_pointer": "/data/redirects"}
+  e-577f7a6fc28cdbce2e84: provider_metadata / not_observed; 0 captured cookies entries in this artifact
+    location: {"json_pointer": "/data/cookies"}
+  e-ad59e118b54341a8254f: provider_metadata / not_observed; 0 captured storages entries in this artifact
+    location: {"json_pointer": "/data/storages"}
+  e-5f21f192be70d19f9227: provider_metadata / not_observed; 0 captured websockets entries in this artifact
+    location: {"json_pointer": "/data/websockets"}
+  e-7a87880e5d5142901f16: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/0"}
+  e-9dd89db0b2dd10a6d98a: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/0/response/response/status"}
+  e-7cbf9c05a6e2c472a947: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/0/request/request"}
+  e-3eef2c8a3e5c62e44ed9: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/1"}
+  e-c78896cbc8e9a77711f1: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/1/request/request"}
+  e-b41fc2366e093c8f630e: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/2"}
+  e-6cfc3319355884115044: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/2/response/response/status"}
+  e-c9b552b98ffac709ff02: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/2/request/request"}
+  e-2fd23d9eadae53e548c0: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/3"}
+  e-72bf2eccfa86228b5f79: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/3/request/request"}
+  e-45877d1b40d392ed006e: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/4"}
+  e-0aa27255fa8e5636fc6f: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/4/response/response/status"}
+  e-70bf2175de7fa73999d0: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/4/request/request"}
+  e-5a624a9aa8a0b6ba0d7a: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/5"}
+  e-085bd796bd8b6e302c30: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/5/response/response/status"}
+  e-6662f007ea2dbdf6f1e0: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/5/request/request"}
+  e-1f0c5eb687e3c7aa2c03: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/6"}
+  e-e5612bfd6fd56a21b7e2: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/6/response/response/status"}
+  e-253eae66f5aeb71dd508: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/6/request/request"}
+  e-efe337c4b2368de501eb: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/7"}
+  e-fbd4210699f0c145c422: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/7/response/response/status"}
+  e-95b9f280a55cf801fc72: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/7/request/request"}
+  e-68e22d197a468c42bc5d: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/8"}
+  e-92c6ee4551b692ad0475: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/8/response/response/status"}
+  e-f79483ba666d7eb05cb1: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/8/request/request"}
+  e-a449552bef27fa0e8fcf: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/9"}
+  e-708e0c1f3f820c583843: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/9/response/response/status"}
+  e-c1124e98c909d453a158: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/9/request/request"}
+  e-80968d179aab91689227: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/10"}
+  e-a2127b4b615355bceea7: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/10/response/response/status"}
+  e-74a775ca84ca54c149c8: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/10/request/request"}
+  e-3a1ee63157368f290b3a: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/11"}
+  e-182c34cd2be9cc213eaf: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/11/response/response/status"}
+  e-eacdbd7f0955cda01daf: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/11/request/request"}
+  e-eee59feb53c290c1c249: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/12"}
+  e-75d591c0db6c44e2ddb7: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/12/response/response/status"}
+  e-a19c27ab09ee056d0bc5: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/12/request/request"}
+  e-69f3064b07d283240d66: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/13"}
+  e-721155c9f93c9b2857ca: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/13/response/response/status"}
+  e-edfa3658fc0fd39edbc2: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/13/request/request/postDataEntries"}
+  e-ffaee410b54867c9f596: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/14"}
+  e-2e1cfde7e02e8c241a51: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/14/response/response/status"}
+  e-81c7575fb55c796d4d4c: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/14/request/request"}
+  e-a76b9ff92e65d34d65bf: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/15"}
+  e-7acd9751d56099c1bf89: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/15/request/request"}
+  e-50cfc4c4e437cb2e8de0: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/16"}
+  e-8ee49b733b08e8eebcb8: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/16/request/request"}
+  e-751147399ce7668f6f38: console / observed; Console entry captured; message content omitted
+    location: {"json_pointer": "/data/console/0"}
+  e-36d35608c8d29d677350: console / observed; Console entry captured; message content omitted
+    location: {"json_pointer": "/data/console/1"}
+  e-bfb1d3694b5b800a4f7b: dom_markup / observed; Control present in markup; visibility and submission not
+    established
+    location: {"column": 821, "line": 1}
+  e-836b6df00177c2b08e3d: dom_markup / observed; Control present in markup; visibility and submission not
+    established
+    location: {"column": 2070, "line": 1}
+  e-eff17f8668b754995535: dom_markup / observed; Control present in markup; visibility and submission not
+    established
+    location: {"column": 2178, "line": 1}
+  e-72e1e58f048faa024ab9: dom_markup / observed; HTML form markup preserved
+    location: {"column": 2044, "line": 1}
+  e-5c90c2d329cce5ccfaba: dom_markup / observed; Submit control markup preserved
+    location: {"column": 2345, "line": 1}
+  e-ba81507e950c8b3602dd: dom_markup / observed; Presentation signal preserved; intent and ownership not
+    assessed
+    location: {"column": 34, "line": 1, "presentation_kind": "document_title"}
+  e-80a1e907e38b50895120: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"column": 285, "line": 1, "script_index": 0}
+  e-46b73f40de7649e670bd: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"column": 330, "line": 1, "script_index": 1}
+  e-5eef0b44ee0bc419ee1e: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"column": 391, "line": 1, "script_index": 2}
+  e-1bf006119fb228bb8160: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"column": 451, "line": 1, "script_index": 3}
+  e-e4fd6d67bbc1fc09aab4: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"column": 506, "line": 1, "script_index": 4}
+  e-ab97a62cf01f71e0322c: static_code / declared; JavaScript artifact reference; execution not established
+    location: {"column": 588, "line": 1, "script_index": 5}
+  e-6c5b88badb557543407d: static_code / declared; JavaScript artifact reference; execution not established
+    location: {"column": 628, "line": 1, "script_index": 6}
+  e-c1e0f822baf708d6e786: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"column": 660, "line": 1, "script_index": 7}
+  e-d5e6533a7a8e3b8e3a44: static_code / declared; JavaScript artifact reference; execution not established
+    location: {"column": 2488, "line": 1, "script_index": 8}
+  e-3feb092359e8c08c7182: static_code / declared; JavaScript artifact reference; execution not established
+    location: {"column": 3016, "line": 1, "script_index": 9}
+  e-4cef10459e61387cbbdc: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 0, "dom_line": 36, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 0, "script_index": 9, "script_line": 36,
+      "static_path_context": [[], "unconditional"]}
+  e-6319fc81542a8a226c56: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 0, "dom_line": 60, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 0, "script_index": 9, "script_line": 60,
+      "static_path_context": [[], "unconditional"]}
+  e-9710d5fd1113a68c2ea7: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 0, "dom_line": 116, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 0, "script_index": 9, "script_line": 116,
+      "static_path_context": [[], "unconditional"]}
+  e-9b89420aeeb9264eaffd: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 0, "dom_line": 132, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 0, "script_index": 9, "script_line": 132,
+      "static_path_context": [[], "unconditional"]}
+  e-8700d073cfd8aa84f47e: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 0, "dom_line": 151, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 0, "script_index": 9, "script_line": 151,
+      "static_path_context": [[], "unconditional"]}
+  e-92d80109e32f6f896ce7: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 0, "dom_line": 232, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 0, "script_index": 9, "script_line": 232,
+      "static_path_context": [[], "unconditional"]}
+  e-37c6a1ffa6aa19167d37: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 0, "dom_line": 240, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 0, "script_index": 9, "script_line": 240,
+      "static_path_context": [[], "unconditional"]}
+  e-fd4bd113cf99d45a7d25: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 0, "dom_line": 253, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 0, "script_index": 9, "script_line": 253,
+      "static_path_context": [[], "unconditional"]}
+  e-edec5da9d814807a47de: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 0, "dom_line": 268, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 0, "script_index": 9, "script_line": 268,
+      "static_path_context": [[], "unconditional"]}
+  e-8f67b0390adba84f0489: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 0, "dom_line": 359, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 0, "script_index": 9, "script_line": 359,
+      "static_path_context": [[], "unconditional"]}
+  e-062d2323394b36e83be1: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 0, "dom_line": 372, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 0, "script_index": 9, "script_line": 372,
+      "static_path_context": [[], "unconditional"]}
+  e-7108ead7d7a659c3eaee: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 23, "dom_line": 8, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 23, "script_index": 9, "script_line":
+      8, "static_path_context": [[], "unconditional"]}
+  e-d57f4e1b6e859678c0bd: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 42, "dom_line": 8, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 42, "script_index": 9, "script_line":
+      8, "static_path_context": [[], "unconditional"]}
+  e-2c48e355a9e44f7ad0fb: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "CONFIG", "column": 3016, "dom_column": 6, "dom_line": 7, "line": 1,
+      "script_column": 6, "script_index": 9, "script_line": 7}
+  e-8f50e45a30153fe9ba42: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "ERROR_MESSAGES", "column": 3016, "dom_column": 6, "dom_line": 27, "line": 1,
+      "script_column": 6, "script_index": 9, "script_line": 27}
+  e-b0b14696f004ac33b032: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 24, "dom_line": 38, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 24, "script_index": 9, "script_line":
+      38, "static_path_context": [[], "unresolved"]}
+  e-34cb1287f4ba6b9941c0: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "cookies", "column": 3016, "dom_column": 14, "dom_line": 38, "line": 1,
+      "script_column": 14, "script_index": 9, "script_line": 38}
+  e-6c89feead58838cf2eee: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "authCookies", "column": 3016, "dom_column": 14, "dom_line": 39, "line": 1,
+      "script_column": 14, "script_index": 9, "script_line": 39}
+  e-76c9d1cd547c2ee26ef9: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 27, "dom_line": 41, "line": 1,
+      "polarity": true, "script_column": 27, "script_index": 9, "script_line": 41}
+  e-d588b2d957c966dee3e1: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 34, "dom_line": 42, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 34, "script_index": 9, "script_line":
+      42, "static_path_context": [["js-predicate-7148d2340f0fa672dfa6"], "unresolved"]}
+  e-f5c51db956f150be1fad: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 33, "dom_line": 43, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 33, "script_index": 9, "script_line": 43,
+      "static_path_context": [[], "unconditional"]}
+  e-967d96dc46ef2879d9ec: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 41, "dom_line": 43, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 41, "script_index": 9, "script_line":
+      43, "static_path_context": [[], "unconditional"]}
+  e-554e0f17354059ddbd45: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 16, "dom_line": 43, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 16, "script_index": 9, "script_line":
+      43, "static_path_context": [["js-predicate-7148d2340f0fa672dfa6"], "unresolved"]}
+  e-aa3eaa631cfa042d1134: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 16, "dom_line": 43, "line": 1,
+      "polarity": true, "script_column": 16, "script_index": 9, "script_line": 43}
+  e-5746c2e26d80ceed97f2: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 20, "dom_line": 44, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 20, "script_index": 9, "script_line":
+      44, "static_path_context": [["js-predicate-7148d2340f0fa672dfa6", "js-predicate-fa42104fb942e96cd43a"],
+      "unresolved"]}
+  e-bbc7ccfe5222c38a2ddc: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 20, "dom_line": 44, "line": 1,
+      "polarity": true, "script_column": 20, "script_index": 9, "script_line": 44}
+  e-a0860204d0834f140a30: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 38, "dom_line": 46, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 38, "script_index": 9, "script_line":
+      46, "static_path_context": [["js-predicate-7148d2340f0fa672dfa6", "js-predicate-fa42104fb942e96cd43a",
+      "js-predicate-4cde794fa56ca5a01464"], "unresolved"]}
+  e-f5ce5db9ae7674bf9af1: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "parts", "column": 3016, "dom_column": 30, "dom_line": 46, "line": 1,
+      "script_column": 30, "script_index": 9, "script_line": 46}
+  e-cd892c7fc5c929f84faf: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 28, "dom_line": 47, "line": 1,
+      "polarity": true, "script_column": 28, "script_index": 9, "script_line": 47}
+  e-02388f7f9515ba836141: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 44, "dom_line": 48, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 44, "script_index": 9, "script_line":
+      48, "static_path_context": [["js-predicate-7148d2340f0fa672dfa6", "js-predicate-fa42104fb942e96cd43a",
+      "js-predicate-4cde794fa56ca5a01464", "js-predicate-2438aeaa654053d94e24"], "unresolved"]}
+  e-1ec47ad5b9f9f4c65f5c: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "decoded", "column": 3016, "dom_column": 34, "dom_line": 48, "line": 1,
+      "script_column": 34, "script_index": 9, "script_line": 48}
+  e-1d67fffdb1423d311717: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 32, "dom_line": 49, "line": 1,
+      "polarity": true, "script_column": 32, "script_index": 9, "script_line": 49}
+  e-722a44cef49f739e052e: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 32, "dom_line": 49, "line": 1,
+      "polarity": false, "script_column": 32, "script_index": 9, "script_line": 49}
+  e-62b8f70fd08209fc7424: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 32, "dom_line": 50, "line": 1,
+      "polarity": true, "script_column": 32, "script_index": 9, "script_line": 50}
+  e-569ad0a5fc47ac3c9c3d: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 32, "dom_line": 50, "line": 1,
+      "polarity": false, "script_column": 32, "script_index": 9, "script_line": 50}
+  e-9157d9b24880764027d5: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "emailPattern", "column": 3016, "dom_column": 10, "dom_line": 61, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 61}
+  e-43583d87f5e8c52d12ac: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 24, "dom_line": 64, "kind":
+      "static_call", "line": 1, "marker": "js-functions-3349384b0f41accabc5c", "script_column": 24,
+      "script_index": 9, "script_line": 64, "static_path_context": [[], "unconditional"]}
+  e-1b4369de10f70dfa6285: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "cookieEmail", "column": 3016, "dom_column": 10, "dom_line": 64, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 64}
+  e-7a1faf146c671e05d13a: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 65, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 65}
+  e-3cca1eaf9e1b9112edac: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 23, "dom_line": 65, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 23, "script_index": 9, "script_line":
+      65, "static_path_context": [["js-predicate-5ff2cdb54072c3952759"], "conditional"]}
+  e-362e80349ee36249c296: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 65, "line": 1,
+      "polarity": false, "script_column": 8, "script_index": 9, "script_line": 65}
+  e-057b3e6c9e1ae8b144e3: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "sources", "column": 3016, "dom_column": 21, "dom_line": 69, "kind":
+      "browser_context", "line": 1, "marker": "window.location.hash", "script_column": 21, "script_index": 9,
+      "script_line": 69, "static_path_context": [["js-predicate-65afdc9839c2307b87d0"], "unresolved"]}
+  e-21813a8c66d7e1142261: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 21, "dom_line": 69, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 21, "script_index": 9, "script_line":
+      69, "static_path_context": [["js-predicate-65afdc9839c2307b87d0"], "unresolved"]}
+  e-d6709453cab731280223: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "hash", "column": 3016, "dom_column": 14, "dom_line": 69, "line": 1,
+      "script_column": 14, "script_index": 9, "script_line": 69}
+  e-043c644d98bad4fd93c2: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "hashParams", "column": 3016, "dom_column": 14, "dom_line": 70, "line": 1,
+      "script_column": 14, "script_index": 9, "script_line": 70}
+  e-3063b2c8c90d7eb284c1: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 26, "dom_line": 71, "line": 1,
+      "polarity": false, "script_column": 26, "script_index": 9, "script_line": 71}
+  e-b02164a64a5321e28255: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "hashEmail", "column": 3016, "dom_column": 14, "dom_line": 71, "line": 1,
+      "script_column": 14, "script_index": 9, "script_line": 71}
+  e-4b3b002121db440767e3: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 12, "dom_line": 72, "line": 1,
+      "polarity": true, "script_column": 12, "script_index": 9, "script_line": 72}
+  e-141063ebfc74f56d2227: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 25, "dom_line": 72, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 25, "script_index": 9, "script_line":
+      72, "static_path_context": [["js-predicate-65afdc9839c2307b87d0", "js-predicate-1e7ffa24e317893515fb"],
+      "unresolved"]}
+  e-7ed172aa6b4a8803d0af: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 12, "dom_line": 72, "line": 1,
+      "polarity": false, "script_column": 12, "script_index": 9, "script_line": 72}
+  e-f72930ef9a5b357bbadd: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "sources", "column": 3016, "dom_column": 43, "dom_line": 77, "kind":
+      "browser_context", "line": 1, "marker": "window.location.search", "script_column": 43, "script_index":
+      9, "script_line": 77, "static_path_context": [["js-predicate-65afdc9839c2307b87d0"], "unresolved"]}
+  e-2c27247b33f8b5658d6e: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 23, "dom_line": 77, "kind":
+      "URLSearchParams_construction", "line": 1, "marker": null, "script_column": 23, "script_index": 9,
+      "script_line": 77, "static_path_context": [["js-predicate-65afdc9839c2307b87d0"], "unresolved"]}
+  e-0c0e0622b80caedb8e50: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "params", "column": 3016, "dom_column": 14, "dom_line": 77, "line": 1,
+      "script_column": 14, "script_index": 9, "script_line": 77}
+  e-596811d92833972f94a6: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "sources", "column": 3016, "dom_column": 25, "dom_line": 78, "kind":
+      "url_parameter", "line": 1, "marker": null, "script_column": 25, "script_index": 9, "script_line": 78,
+      "static_path_context": [["js-predicate-65afdc9839c2307b87d0"], "unresolved"]}
+  e-a98b8126944d695c7536: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 25, "dom_line": 78, "line": 1,
+      "polarity": false, "script_column": 25, "script_index": 9, "script_line": 78}
+  e-b93b12ba0e467967b99d: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "sources", "column": 3016, "dom_column": 48, "dom_line": 78, "kind":
+      "url_parameter", "line": 1, "marker": null, "script_column": 48, "script_index": 9, "script_line": 78,
+      "static_path_context": [["js-predicate-65afdc9839c2307b87d0", "js-predicate-5c2ebac8f55e56363635"],
+      "unresolved"]}
+  e-5522f9417dc5e439a801: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "sources", "column": 3016, "dom_column": 70, "dom_line": 78, "kind":
+      "url_parameter", "line": 1, "marker": null, "script_column": 70, "script_index": 9, "script_line": 78,
+      "static_path_context": [["js-predicate-65afdc9839c2307b87d0", "js-predicate-5c2ebac8f55e56363635"],
+      "unresolved"]}
+  e-5998f541dd2b19772144: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "urlEmail", "column": 3016, "dom_column": 14, "dom_line": 78, "line": 1,
+      "script_column": 14, "script_index": 9, "script_line": 78}
+  e-87ea890a9c94b5805441: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 12, "dom_line": 79, "line": 1,
+      "polarity": true, "script_column": 12, "script_index": 9, "script_line": 79}
+  e-3edbc893a0308ba04740: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 24, "dom_line": 79, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 24, "script_index": 9, "script_line":
+      79, "static_path_context": [["js-predicate-65afdc9839c2307b87d0", "js-predicate-a3ad63dbbd61f5b65110"],
+      "unresolved"]}
+  e-a55ce29cb99aa8a9714d: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 12, "dom_line": 79, "line": 1,
+      "polarity": false, "script_column": 12, "script_index": 9, "script_line": 79}
+  e-c19cc337cd67d3f28db2: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 23, "dom_line": 84, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 23, "script_index": 9, "script_line":
+      84, "static_path_context": [["js-predicate-65afdc9839c2307b87d0"], "unresolved"]}
+  e-69e88ff5c0a6f0977a93: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "inputs", "column": 3016, "dom_column": 14, "dom_line": 84, "line": 1,
+      "script_column": 14, "script_index": 9, "script_line": 84}
+  e-de964028716693591b65: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 26, "dom_line": 85, "line": 1,
+      "polarity": true, "script_column": 26, "script_index": 9, "script_line": 85}
+  e-cbd657e54fdef4609f6b: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 16, "dom_line": 86, "line": 1,
+      "polarity": true, "script_column": 16, "script_index": 9, "script_line": 86}
+  e-f092fe736508d1393133: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 31, "dom_line": 86, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 31, "script_index": 9, "script_line":
+      86, "static_path_context": [["js-predicate-65afdc9839c2307b87d0", "js-predicate-146bdd457bcdec08c88d",
+      "js-predicate-376f41719239444e85b3"], "unresolved"]}
+  e-d9268cd0790750de1d82: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 16, "dom_line": 86, "line": 1,
+      "polarity": false, "script_column": 16, "script_index": 9, "script_line": 86}
+  e-bcd41bbed41a3a74c78c: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 24, "dom_line": 94, "line": 1,
+      "polarity": true, "script_column": 24, "script_index": 9, "script_line": 94}
+  e-d1098a0dd5061555818b: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 24, "dom_line": 95, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 24, "script_index": 9, "script_line":
+      95, "static_path_context": [["js-predicate-65afdc9839c2307b87d0", "js-predicate-523138553bf26ebb1fab"],
+      "unresolved"]}
+  e-cd9fdd9b147ed4df5747: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "key", "column": 3016, "dom_column": 18, "dom_line": 95, "line": 1, "script_column":
+      18, "script_index": 9, "script_line": 95}
+  e-c0f74076db829368e5fb: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 26, "dom_line": 96, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 26, "script_index": 9, "script_line":
+      96, "static_path_context": [["js-predicate-65afdc9839c2307b87d0", "js-predicate-523138553bf26ebb1fab"],
+      "unresolved"]}
+  e-4c5391fe7d1285c40f8e: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "value", "column": 3016, "dom_column": 18, "dom_line": 96, "line": 1,
+      "script_column": 18, "script_index": 9, "script_line": 96}
+  e-02474beaf73c3a89f916: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 16, "dom_line": 97, "line": 1,
+      "polarity": true, "script_column": 16, "script_index": 9, "script_line": 97}
+  e-0e7129945b09e0fac4bc: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 25, "dom_line": 97, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 25, "script_index": 9, "script_line":
+      97, "static_path_context": [["js-predicate-65afdc9839c2307b87d0", "js-predicate-523138553bf26ebb1fab",
+      "js-predicate-0432b709a599a3d099dc"], "unresolved"]}
+  e-06f0ba6eb4d9faf7cbad: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 16, "dom_line": 97, "line": 1,
+      "polarity": false, "script_column": 16, "script_index": 9, "script_line": 97}
+  e-49bdc6a520e4c0cf4b6d: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "windowVars", "column": 3016, "dom_column": 14, "dom_line": 105, "line": 1,
+      "script_column": 14, "script_index": 9, "script_line": 105}
+  e-93355b52d9f9614f9068: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 28, "dom_line": 106, "line": 1,
+      "polarity": true, "script_column": 28, "script_index": 9, "script_line": 106}
+  e-41ddfad5987860d560c3: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 16, "dom_line": 107, "line": 1,
+      "polarity": true, "script_column": 16, "script_index": 9, "script_line": 107}
+  e-86fb8f8a5ef30f08401c: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 74, "dom_line": 107, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 74, "script_index": 9, "script_line":
+      107, "static_path_context": [["js-predicate-65afdc9839c2307b87d0", "js-predicate-4cbb79b681455614ae86"],
+      "truncated"]}
+  e-99de4c10778cc3075a25: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "sinks", "column": 3016, "dom_column": 14, "dom_line": 119, "kind": "fetch",
+      "line": 1, "marker": null, "script_column": 14, "script_index": 9, "script_line": 119,
+      "static_path_context": [[], "unresolved"]}
+  e-a428d918b7ff857bebe7: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 14, "dom_line": 119, "interaction_kind": "request", "line": 1,
+      "script_column": 14, "script_index": 9, "script_line": 119}
+  e-ad80a4a66c48424a119e: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "sinks", "column": 3016, "dom_column": 31, "dom_line": 134, "kind": "fetch",
+      "line": 1, "marker": null, "script_column": 31, "script_index": 9, "script_line": 134,
+      "static_path_context": [[], "unresolved"]}
+  e-94daef9c2ef7a4fb61c4: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 31, "dom_line": 134, "interaction_kind": "request", "line": 1,
+      "script_column": 31, "script_index": 9, "script_line": 134}
+  e-6639fb717a785ff6eeac: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "response", "column": 3016, "dom_column": 14, "dom_line": 134, "line": 1,
+      "script_column": 14, "script_index": 9, "script_line": 134}
+  e-3101bf83bbd4bcbcad8d: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 12, "dom_line": 139, "line": 1,
+      "polarity": true, "script_column": 12, "script_index": 9, "script_line": 139}
+  e-e4486a264fdb48deaeff: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 31, "dom_line": 140, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 31, "script_index": 9, "script_line":
+      140, "static_path_context": [["js-predicate-c935441df076ccaeb51b"], "unresolved"]}
+  e-c43ecfb89d71c199cb9d: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "data", "column": 3016, "dom_column": 18, "dom_line": 140, "line": 1,
+      "script_column": 18, "script_index": 9, "script_line": 140}
+  e-991e4b18133defa9b37e: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 12, "dom_line": 139, "line": 1,
+      "polarity": false, "script_column": 12, "script_index": 9, "script_line": 139}
+  e-e10cf557a133a96c7b60: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "modal", "column": 3016, "dom_column": 10, "dom_line": 152, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 152}
+  e-fc1c1df0f65303145ef5: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 153, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 153}
+  e-642137af66906ab8d49b: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 154, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      154, "static_path_context": [["js-predicate-464e5012e16d87f71d43"], "conditional"]}
+  e-fd6a0eef9627ab51c107: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 154, "interaction_kind": "class_mutation", "line":
+      1, "script_column": 8, "script_index": 9, "script_line": 154}
+  e-1c85e112bb03941943f6: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 157, "interaction_kind": "handler", "line": 1,
+      "script_column": 8, "script_index": 9, "script_line": 157}
+  e-1623313075c44ab9185a: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 19, "dom_line": 157, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 19, "script_index": 9, "script_line": 157,
+      "static_path_context": [[], "unconditional"]}
+  e-b5af8cee5fcda2e8ba69: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "sources", "column": 3016, "dom_column": 25, "dom_line": 159, "kind":
+      "browser_context", "line": 1, "marker": "window.location.hash", "script_column": 25, "script_index": 9,
+      "script_line": 159, "static_path_context": [[], "unconditional"]}
+  e-8cf28b50a6d1a288bdc0: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 25, "dom_line": 159, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 25, "script_index": 9, "script_line":
+      159, "static_path_context": [[], "unconditional"]}
+  e-565128d43d8b7a82c7a2: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "hash", "column": 3016, "dom_column": 18, "dom_line": 159, "line": 1,
+      "script_column": 18, "script_index": 9, "script_line": 159}
+  e-3458cff6f98a89cc1da8: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 16, "dom_line": 163, "line": 1,
+      "polarity": true, "script_column": 16, "script_index": 9, "script_line": 163}
+  e-942232e0ff4bb2de0f4c: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 20, "dom_line": 165, "line": 1,
+      "polarity": true, "script_column": 20, "script_index": 9, "script_line": 165}
+  e-80d4bc144ab1534226ad: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 29, "dom_line": 177, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 29, "script_index": 9, "script_line": 177,
+      "static_path_context": [[], "unconditional"]}
+  e-8757ac0625afc4da013c: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 28, "dom_line": 169, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 28, "script_index": 9, "script_line": 169,
+      "static_path_context": [[], "unconditional"]}
+  e-daf0d7b96306ec5ed5d1: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 28, "dom_line": 170, "line": 1,
+      "polarity": true, "script_column": 28, "script_index": 9, "script_line": 170}
+  e-f37044b733cbd2f4cefe: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 93, "dom_line": 170, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 93, "script_index": 9, "script_line":
+      170, "static_path_context": [["js-predicate-45d3f705b837c9b5eec2"], "conditional"]}
+  e-239593bc6b206978b5ab: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 28, "dom_line": 172, "interaction_kind": "prefill", "line": 1,
+      "script_column": 28, "script_index": 9, "script_line": 172}
+  e-02555d37832578702851: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 28, "dom_line": 173, "interaction_kind": "handler", "line": 1,
+      "script_column": 28, "script_index": 9, "script_line": 173}
+  e-f8e9c570884e4503fa21: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 39, "dom_line": 173, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 39, "script_index": 9, "script_line": 173,
+      "static_path_context": [[], "unconditional"]}
+  e-9d3f9cc40d3cad609b6a: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 32, "dom_line": 174, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 32, "script_index": 9, "script_line":
+      174, "static_path_context": [[], "unconditional"]}
+  e-d31311253dc104775dd7: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 28, "dom_line": 173, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 28, "script_index": 9, "script_line":
+      173, "static_path_context": [["js-predicate-45d3f705b837c9b5eec2"], "conditional"]}
+  e-80296fa7c7822be7b150: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 20, "dom_line": 166, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 20, "script_index": 9, "script_line":
+      166, "static_path_context": [["js-predicate-c7cc12dd475150c29bd5", "js-predicate-18a15aafab2037b41c34"],
+      "conditional"]}
+  e-45cbae882d32419baffb: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 35, "dom_line": 183, "kind":
+      "static_call", "line": 1, "marker": "js-functions-483c664c1a5b82940386", "script_column": 35,
+      "script_index": 9, "script_line": 183, "static_path_context": [["js-predicate-c7cc12dd475150c29bd5"],
+      "conditional"]}
+  e-ecab5e046a09b7a0ba56: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "savedEmail", "column": 3016, "dom_column": 22, "dom_line": 183, "line": 1,
+      "script_column": 22, "script_index": 9, "script_line": 183}
+  e-e83afe9ea484373d8c4d: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 20, "dom_line": 184, "line": 1,
+      "polarity": true, "script_column": 20, "script_index": 9, "script_line": 184}
+  e-c8969da235bd383fc529: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 34, "dom_line": 184, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 34, "script_index": 9, "script_line":
+      184, "static_path_context": [["js-predicate-c7cc12dd475150c29bd5", "js-predicate-0b3657e0dc10af0166f0"],
+      "conditional"]}
+  e-bc0839f664cf69743e54: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 20, "dom_line": 185, "interaction_kind": "prefill", "line": 1,
+      "script_column": 20, "script_index": 9, "script_line": 185}
+  e-22df29f6c40f2fdd3fc4: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 20, "dom_line": 186, "interaction_kind": "handler", "line": 1,
+      "script_column": 20, "script_index": 9, "script_line": 186}
+  e-c2cd055fcbf1e98e8750: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 31, "dom_line": 186, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 31, "script_index": 9, "script_line": 186,
+      "static_path_context": [[], "unconditional"]}
+  e-126bb88dbe866d7b6283: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 24, "dom_line": 187, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 24, "script_index": 9, "script_line":
+      187, "static_path_context": [[], "unconditional"]}
+  e-56bbcf7aaba8e0b7a3af: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 20, "dom_line": 186, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 20, "script_index": 9, "script_line":
+      186, "static_path_context": [["js-predicate-c7cc12dd475150c29bd5", "js-predicate-0b3657e0dc10af0166f0"],
+      "conditional"]}
+  e-3f98211e138ce22ef3e8: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 20, "dom_line": 184, "line": 1,
+      "polarity": false, "script_column": 20, "script_index": 9, "script_line": 184}
+  e-99664d2a9950c0090300: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 20, "dom_line": 191, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 20, "script_index": 9, "script_line":
+      191, "static_path_context": [["js-predicate-c7cc12dd475150c29bd5", "js-predicate-9ced6de3e804a84e475d"],
+      "conditional"]}
+  e-a681c82d888a7e7f275b: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 16, "dom_line": 197, "line": 1,
+      "polarity": true, "script_column": 16, "script_index": 9, "script_line": 197}
+  e-f6cf42bf3d2a3ecb5088: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "base64regex", "column": 3016, "dom_column": 22, "dom_line": 198, "line": 1,
+      "script_column": 22, "script_index": 9, "script_line": 198}
+  e-dd791532eb08e2acbaee: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 20, "dom_line": 199, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 20, "script_index": 9, "script_line":
+      199, "static_path_context": [["js-predicate-47b94c758eae39db380f"], "unresolved"]}
+  e-136685260f82bb0a090c: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 20, "dom_line": 199, "line": 1,
+      "polarity": true, "script_column": 20, "script_index": 9, "script_line": 199}
+  e-7e0e34f2d645cfc12fbe: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 20, "dom_line": 199, "line": 1,
+      "polarity": false, "script_column": 20, "script_index": 9, "script_line": 199}
+  e-e0b2e5cfcdcdee01a0ea: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 16, "dom_line": 211, "line": 1,
+      "polarity": false, "script_column": 16, "script_index": 9, "script_line": 211}
+  e-a9ff0e8c10f632828aa3: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 27, "dom_line": 211, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 27, "script_index": 9, "script_line":
+      211, "static_path_context": [["js-predicate-2ca1755b3659230efa6f"], "unresolved"]}
+  e-8da3db5dcefc0cf6c32d: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 16, "dom_line": 211, "line": 1,
+      "polarity": true, "script_column": 16, "script_index": 9, "script_line": 211}
+  e-0d02cfffd04ba2c80b36: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 24, "dom_line": 212, "kind":
+      "static_call", "line": 1, "marker": "js-functions-483c664c1a5b82940386", "script_column": 24,
+      "script_index": 9, "script_line": 212, "static_path_context": [["js-predicate-78a3868903d9e54b956d"],
+      "unresolved"]}
+  e-92624b87267863e80cd3: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 16, "dom_line": 216, "line": 1,
+      "polarity": true, "script_column": 16, "script_index": 9, "script_line": 216}
+  e-814fd3c3c2a22411b086: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 25, "dom_line": 216, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 25, "script_index": 9, "script_line":
+      216, "static_path_context": [["js-predicate-b82c1d55816c270de1b6"], "unresolved"]}
+  e-e987584e51af49b44c5c: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 49, "dom_line": 216, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 49, "script_index": 9, "script_line":
+      216, "static_path_context": [["js-predicate-b82c1d55816c270de1b6"], "unresolved"]}
+  e-05ee59dc930994fe3f65: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 73, "dom_line": 216, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 73, "script_index": 9, "script_line":
+      216, "static_path_context": [["js-predicate-b82c1d55816c270de1b6"], "unresolved"]}
+  e-5bd4388e6d3324a04549: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 16, "dom_line": 217, "interaction_kind": "prefill", "line": 1,
+      "script_column": 16, "script_index": 9, "script_line": 217}
+  e-9de6832fba0179569948: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 16, "dom_line": 218, "interaction_kind": "handler", "line": 1,
+      "script_column": 16, "script_index": 9, "script_line": 218}
+  e-5b0f3b282303968d07c2: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 27, "dom_line": 218, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 27, "script_index": 9, "script_line": 218,
+      "static_path_context": [[], "unconditional"]}
+  e-d04a4f3d121008fdd795: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 20, "dom_line": 219, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 20, "script_index": 9, "script_line":
+      219, "static_path_context": [[], "unconditional"]}
+  e-473058555c01a3709791: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 16, "dom_line": 218, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 16, "script_index": 9, "script_line":
+      218, "static_path_context": [["js-predicate-b82c1d55816c270de1b6"], "unresolved"]}
+  e-bcbd40f7a04011553bd2: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 16, "dom_line": 216, "line": 1,
+      "polarity": false, "script_column": 16, "script_index": 9, "script_line": 216}
+  e-559fb78e6e7698f9a1c5: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 16, "dom_line": 223, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 16, "script_index": 9, "script_line":
+      223, "static_path_context": [["js-predicate-f9d642a727b3056a4ce9"], "unresolved"]}
+  e-f28fd2df9e8e8b6056e8: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 16, "dom_line": 224, "interaction_kind": "field_reset", "line":
+      1, "script_column": 16, "script_index": 9, "script_line": 224}
+  e-b06e4e0f65e578e4b8e2: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 157, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      157, "static_path_context": [["js-predicate-464e5012e16d87f71d43"], "conditional"]}
+  e-bf147dc6a541470a83a0: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "modal", "column": 3016, "dom_column": 10, "dom_line": 234, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 234}
+  e-d623541788153b49dff5: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 235, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 235}
+  e-707461e4d6c3d194dd31: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 236, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      236, "static_path_context": [["js-predicate-60dbeafcf3c03be5b735"], "conditional"]}
+  e-eb9d95abfee97a9ef459: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 236, "interaction_kind": "class_mutation", "line":
+      1, "script_column": 8, "script_index": 9, "script_line": 236}
+  e-bbc2f9027fec85643730: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 27, "dom_line": 244, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 27, "script_index": 9, "script_line":
+      244, "static_path_context": [[], "unresolved"]}
+  e-7724093981620105b141: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "sinks", "column": 3016, "dom_column": 8, "dom_line": 242, "kind":
+      "browser_storage_write", "line": 1, "marker": null, "script_column": 8, "script_index": 9,
+      "script_line": 242, "static_path_context": [[], "unresolved"]}
+  e-d5968a9231657b1f207d: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "errorMessage", "column": 3016, "dom_column": 10, "dom_line": 254, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 254}
+  e-59922cff294c28be12da: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "errorText", "column": 3016, "dom_column": 10, "dom_line": 255, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 255}
+  e-a2e1a0a4cde6cda41340: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 257, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 257}
+  e-0183fecd7340008e871f: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 258, "interaction_kind": "content_replacement",
+      "line": 1, "script_column": 8, "script_index": 9, "script_line": 258}
+  e-a9e23ef4ae0a52578e8c: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 259, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      259, "static_path_context": [["js-predicate-dbfbe6f9fe759ac27ecd"], "conditional"]}
+  e-5dba58ad2a27fae45c29: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 259, "interaction_kind": "class_mutation", "line":
+      1, "script_column": 8, "script_index": 9, "script_line": 259}
+  e-082632aa221f5c621a13: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 262, "interaction_kind": "handler", "line": 1,
+      "script_column": 8, "script_index": 9, "script_line": 262}
+  e-74935b8eae2400137247: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 19, "dom_line": 262, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 19, "script_index": 9, "script_line": 262,
+      "static_path_context": [[], "unconditional"]}
+  e-1ed331b2c741efd0dea7: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 262, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      262, "static_path_context": [["js-predicate-dbfbe6f9fe759ac27ecd"], "conditional"]}
+  e-ee0161793631562f5702: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 4, "dom_line": 269, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 4, "script_index": 9, "script_line":
+      269, "static_path_context": [[], "unconditional"]}
+  e-5146618b0ee5e23d3d70: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "sources", "column": 3016, "dom_column": 18, "dom_line": 271, "kind":
+      "dom_control", "line": 1, "marker": "control-2788f39069767c1dceb8", "script_column": 18, "script_index":
+      9, "script_line": 271, "static_path_context": [[], "unconditional"]}
+  e-bdfb3f91acc7db467929: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 18, "dom_line": 271, "kind": "trim",
+      "line": 1, "marker": null, "script_column": 18, "script_index": 9, "script_line": 271,
+      "static_path_context": [[], "unconditional"]}
+  e-d08cb0d9028ef19ec9e8: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 10, "dom_line": 271, "kind":
+      "variable_alias", "line": 1, "marker": null, "script_column": 10, "script_index": 9, "script_line": 271,
+      "static_path_context": [[], "unconditional"]}
+  e-9305142817fef9d6c72d: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "email", "column": 3016, "dom_column": 10, "dom_line": 271, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 271}
+  e-d0d73f2b07367602e52f: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "sources", "column": 3016, "dom_column": 21, "dom_line": 272, "kind":
+      "dom_control", "line": 1, "marker": "control-f41cd3244197252ee7f6", "script_column": 21, "script_index":
+      9, "script_line": 272, "static_path_context": [[], "unconditional"]}
+  e-2366c09466e3162c212f: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 10, "dom_line": 272, "kind":
+      "variable_alias", "line": 1, "marker": null, "script_column": 10, "script_index": 9, "script_line": 272,
+      "static_path_context": [[], "unconditional"]}
+  e-1c000a427ca3b4be5031: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "password", "column": 3016, "dom_column": 10, "dom_line": 272, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 272}
+  e-23ce88a9b5a6c7308094: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "submitBtn", "column": 3016, "dom_column": 10, "dom_line": 273, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 273}
+  e-e4653b0822784204f789: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 275, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 275}
+  e-be4dba72a7e511bee06d: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 275, "line": 1,
+      "polarity": false, "script_column": 8, "script_index": 9, "script_line": 275}
+  e-a4f43e48eadfdf463b96: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 278, "line": 1,
+      "polarity": false, "script_column": 8, "script_index": 9, "script_line": 278}
+  e-84a124b0d009b6fda2a6: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 19, "dom_line": 278, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 19, "script_index": 9, "script_line":
+      278, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68"],
+      "conditional"]}
+  e-e6674684438ea040a789: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 278, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 278}
+  e-8be62e3987b679388c76: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 279, "kind":
+      "static_call", "line": 1, "marker": "js-functions-255c4105391caa2ac773", "script_column": 8,
+      "script_index": 9, "script_line": 279, "static_path_context": [["js-predicate-92aec1125a3d9a971f34",
+      "js-predicate-016e3e76e9da4ab979c2"], "conditional"]}
+  e-af5d59640d55279126c5: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "errorMessage", "column": 3016, "dom_column": 10, "dom_line": 254, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 254, "static_call_context":
+      ["js-call_edges-27b444663d56d2dac4d5"]}
+  e-6427b2d330b76ec242a3: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "errorText", "column": 3016, "dom_column": 10, "dom_line": 255, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 255, "static_call_context":
+      ["js-call_edges-27b444663d56d2dac4d5"]}
+  e-cfbc85f030978a839a86: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 257, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 257, "static_call_context":
+      ["js-call_edges-27b444663d56d2dac4d5"]}
+  e-de09db098e57d996f013: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 258, "interaction_kind": "content_replacement",
+      "line": 1, "script_column": 8, "script_index": 9, "script_line": 258, "static_call_context":
+      ["js-call_edges-27b444663d56d2dac4d5"]}
+  e-4373cde1f2bdfbbe53d1: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 259, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      259, "static_call_context": ["js-call_edges-27b444663d56d2dac4d5"], "static_path_context":
+      [["js-predicate-92aec1125a3d9a971f34", "js-predicate-016e3e76e9da4ab979c2",
+      "js-predicate-d072a955dbe39c48ff7a"], "conditional"]}
+  e-69232182f0144c3597ec: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 259, "interaction_kind": "class_mutation", "line":
+      1, "script_column": 8, "script_index": 9, "script_line": 259, "static_call_context":
+      ["js-call_edges-27b444663d56d2dac4d5"]}
+  e-f467b187b5169223ee14: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 262, "interaction_kind": "handler", "line": 1,
+      "script_column": 8, "script_index": 9, "script_line": 262, "static_call_context":
+      ["js-call_edges-27b444663d56d2dac4d5"]}
+  e-385d3cdb527ee07b6e6d: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 262, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      262, "static_call_context": ["js-call_edges-27b444663d56d2dac4d5"], "static_path_context":
+      [["js-predicate-92aec1125a3d9a971f34", "js-predicate-016e3e76e9da4ab979c2",
+      "js-predicate-d072a955dbe39c48ff7a"], "conditional"]}
+  e-e6d6b6421d1d70cb9180: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 283, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 283}
+  e-f1d678ddddb17fafe5cc: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 284, "kind":
+      "static_call", "line": 1, "marker": "js-functions-255c4105391caa2ac773", "script_column": 8,
+      "script_index": 9, "script_line": 284, "static_path_context": [["js-predicate-92aec1125a3d9a971f34",
+      "js-predicate-134a0ceccabd7bd70f68", "js-predicate-9a060aedaa774595bb9e"], "conditional"]}
+  e-173787960fee854e0c49: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "errorMessage", "column": 3016, "dom_column": 10, "dom_line": 254, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 254, "static_call_context":
+      ["js-call_edges-ef040d2d0867be2a6fe3"]}
+  e-90168b96ed2f857b1542: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "errorText", "column": 3016, "dom_column": 10, "dom_line": 255, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 255, "static_call_context":
+      ["js-call_edges-ef040d2d0867be2a6fe3"]}
+  e-1171d1dd60612945737d: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 257, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 257, "static_call_context":
+      ["js-call_edges-ef040d2d0867be2a6fe3"]}
+  e-9537a9c39a8bbc75ad8a: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 258, "interaction_kind": "content_replacement",
+      "line": 1, "script_column": 8, "script_index": 9, "script_line": 258, "static_call_context":
+      ["js-call_edges-ef040d2d0867be2a6fe3"]}
+  e-05381fb8873115ed36ba: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 259, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      259, "static_call_context": ["js-call_edges-ef040d2d0867be2a6fe3"], "static_path_context":
+      [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-9a060aedaa774595bb9e", "js-predicate-dfe13da22e314314d16a"], "conditional"]}
+  e-ebbc71399a09e4d8744c: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 259, "interaction_kind": "class_mutation", "line":
+      1, "script_column": 8, "script_index": 9, "script_line": 259, "static_call_context":
+      ["js-call_edges-ef040d2d0867be2a6fe3"]}
+  e-3b5ede46b63e10fffae2: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 262, "interaction_kind": "handler", "line": 1,
+      "script_column": 8, "script_index": 9, "script_line": 262, "static_call_context":
+      ["js-call_edges-ef040d2d0867be2a6fe3"]}
+  e-23357017f63895e8b766: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 262, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      262, "static_call_context": ["js-call_edges-ef040d2d0867be2a6fe3"], "static_path_context":
+      [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-9a060aedaa774595bb9e", "js-predicate-dfe13da22e314314d16a"], "conditional"]}
+  e-c339414a6a5bd4ec0bc7: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 283, "line": 1,
+      "polarity": false, "script_column": 8, "script_index": 9, "script_line": 283}
+  e-f5ccb16dc452f2eb43c0: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 4, "dom_line": 289, "interaction_kind": "availability", "line":
+      1, "script_column": 4, "script_index": 9, "script_line": 289}
+  e-db61d80d3261dd32390f: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 4, "dom_line": 290, "interaction_kind": "content_replacement",
+      "line": 1, "script_column": 4, "script_index": 9, "script_line": 290}
+  e-0902c9e32ade92b855da: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 4, "dom_line": 291, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 4, "script_index": 9, "script_line":
+      291, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "conditional"]}
+  e-a13cef0790d683f5dfc4: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 4, "dom_line": 291, "interaction_kind": "class_mutation", "line":
+      1, "script_column": 4, "script_index": 9, "script_line": 291}
+  e-27e22a65293c566a6d96: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "sinks", "column": 3016, "dom_column": 35, "dom_line": 297, "kind": "fetch",
+      "line": 1, "marker": null, "script_column": 35, "script_index": 9, "script_line": 297,
+      "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-1a922517787847c153c8: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 35, "dom_line": 297, "interaction_kind": "request", "line": 1,
+      "script_column": 35, "script_index": 9, "script_line": 297}
+  e-0dc7192852276c3153b9: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "response", "column": 3016, "dom_column": 18, "dom_line": 297, "line": 1,
+      "script_column": 18, "script_index": 9, "script_line": 297}
+  e-ca3d7b76f830d58b70c2: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 31, "dom_line": 298, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 31, "script_index": 9, "script_line":
+      298, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-0e0be792a0e79857cf05: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "data", "column": 3016, "dom_column": 18, "dom_line": 298, "line": 1,
+      "script_column": 18, "script_index": 9, "script_line": 298}
+  e-a17846f9de5d79cd0ff4: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 12, "dom_line": 305, "kind":
+      "object_property", "line": 1, "marker": "e", "script_column": 12, "script_index": 9, "script_line": 305,
+      "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-4f4d384740cb59e0ba04: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 12, "dom_line": 306, "kind":
+      "object_property", "line": 1, "marker": "p", "script_column": 12, "script_index": 9, "script_line": 306,
+      "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-875733a34fbcb6bbcd95: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "sources", "column": 3016, "dom_column": 16, "dom_line": 308, "kind":
+      "browser_context", "line": 1, "marker": "navigator.userAgent", "script_column": 16, "script_index": 9,
+      "script_line": 308, "static_path_context": [["js-predicate-92aec1125a3d9a971f34",
+      "js-predicate-134a0ceccabd7bd70f68", "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-1962241435973ee72947: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 12, "dom_line": 308, "kind":
+      "object_property", "line": 1, "marker": "ua", "script_column": 12, "script_index": 9, "script_line":
+      308, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-b4510a26c75bac9f1b48: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "sources", "column": 3016, "dom_column": 15, "dom_line": 309, "kind":
+      "browser_context", "line": 1, "marker": "navigator.language", "script_column": 15, "script_index": 9,
+      "script_line": 309, "static_path_context": [["js-predicate-92aec1125a3d9a971f34",
+      "js-predicate-134a0ceccabd7bd70f68", "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-e608674589c0a30a72e4: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 12, "dom_line": 309, "kind":
+      "object_property", "line": 1, "marker": "l", "script_column": 12, "script_index": 9, "script_line": 309,
+      "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-b7bc34bceb11cb44d2dc: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "sources", "column": 3016, "dom_column": 17, "dom_line": 310, "kind":
+      "browser_context", "line": 1, "marker": "document.referrer", "script_column": 17, "script_index": 9,
+      "script_line": 310, "static_path_context": [["js-predicate-92aec1125a3d9a971f34",
+      "js-predicate-134a0ceccabd7bd70f68", "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-24b14d17a744e82146dc: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 17, "dom_line": 310, "line": 1,
+      "polarity": false, "script_column": 17, "script_index": 9, "script_line": 310}
+  e-c7f7bd3548fae379ad47: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 15, "dom_line": 311, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 15, "script_index": 9, "script_line":
+      311, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-3a4399e0285b36f51731: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 21, "dom_line": 303, "kind":
+      "object_construction", "line": 1, "marker": null, "script_column": 21, "script_index": 9, "script_line":
+      303, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-4fbf38d47292a5a8cc61: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "data", "column": 3016, "dom_column": 14, "dom_line": 303, "line": 1,
+      "script_column": 14, "script_index": 9, "script_line": 303}
+  e-46cd1fc840e67875a301: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 12, "dom_line": 323, "kind":
+      "object_property", "line": 1, "marker": "email", "script_column": 12, "script_index": 9, "script_line":
+      323, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-551e93e8f7ff8f281952: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 12, "dom_line": 324, "kind":
+      "object_property", "line": 1, "marker": "password", "script_column": 12, "script_index": 9,
+      "script_line": 324, "static_path_context": [["js-predicate-92aec1125a3d9a971f34",
+      "js-predicate-134a0ceccabd7bd70f68", "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-a671fb4ba3f95453f7d2: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 16, "dom_line": 325, "line": 1,
+      "polarity": false, "script_column": 16, "script_index": 9, "script_line": 325}
+  e-45dcfe101226f7596892: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "sources", "column": 3016, "dom_column": 23, "dom_line": 326, "kind":
+      "browser_context", "line": 1, "marker": "navigator.userAgent", "script_column": 23, "script_index": 9,
+      "script_line": 326, "static_path_context": [["js-predicate-92aec1125a3d9a971f34",
+      "js-predicate-134a0ceccabd7bd70f68", "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-8cdef38f8e5e2526da4b: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 12, "dom_line": 326, "kind":
+      "object_property", "line": 1, "marker": "userAgent", "script_column": 12, "script_index": 9,
+      "script_line": 326, "static_path_context": [["js-predicate-92aec1125a3d9a971f34",
+      "js-predicate-134a0ceccabd7bd70f68", "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-688d2f217682632db825: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 29, "dom_line": 322, "kind":
+      "object_construction", "line": 1, "marker": null, "script_column": 29, "script_index": 9, "script_line":
+      322, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-74d9701b7da33aac46b8: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 14, "dom_line": 322, "kind":
+      "JSON.stringify", "line": 1, "marker": null, "script_column": 14, "script_index": 9, "script_line": 322,
+      "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-53217ed5fa30db5263e8: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 8, "dom_line": 322, "kind":
+      "object_property", "line": 1, "marker": "body", "script_column": 8, "script_index": 9, "script_line":
+      322, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-4453d4566ccc1af34b98: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "transforms", "column": 3016, "dom_column": 32, "dom_line": 316, "kind":
+      "object_construction", "line": 1, "marker": null, "script_column": 32, "script_index": 9, "script_line":
+      316, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-605a91c77cd2c548404e: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "sinks", "column": 3016, "dom_column": 10, "dom_line": 316, "kind": "fetch",
+      "line": 1, "marker": null, "script_column": 10, "script_index": 9, "script_line": 316,
+      "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-4ec583ab1e1a1d2d2413: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 10, "dom_line": 316, "interaction_kind": "request", "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 316}
+  e-a96610ccaeec31dcf6c7: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 4, "dom_line": 330, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 4, "script_index": 9, "script_line":
+      330, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-c1519a35d6ca84978568: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 334, "interaction_kind": "handler", "line": 1,
+      "script_column": 8, "script_index": 9, "script_line": 334}
+  e-799032dbe38a72c6112e: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 19, "dom_line": 334, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 19, "script_index": 9, "script_line": 334,
+      "static_path_context": [[], "unconditional"]}
+  e-c142f3c3b3b9408e925f: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 58, "dom_line": 336, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 58, "script_index": 9, "script_line":
+      336, "static_path_context": [[], "unconditional"]}
+  e-f5b437ef412b59a57acf: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 47, "dom_line": 336, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 47, "script_index": 9, "script_line":
+      336, "static_path_context": [[], "unconditional"]}
+  e-fb587d23f999d53dc537: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "randomError", "column": 3016, "dom_column": 18, "dom_line": 336, "line": 1,
+      "script_column": 18, "script_index": 9, "script_line": 336}
+  e-89b9b8fbb8401f476653: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 12, "dom_line": 337, "kind":
+      "static_call", "line": 1, "marker": "js-functions-255c4105391caa2ac773", "script_column": 12,
+      "script_index": 9, "script_line": 337, "static_path_context": [[], "unconditional"]}
+  e-289eab29b96a87ebc9ce: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "errorMessage", "column": 3016, "dom_column": 10, "dom_line": 254, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 254, "static_call_context":
+      ["js-call_edges-a73f92e920f657e46a21"]}
+  e-578d4590934a676bfc30: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "errorText", "column": 3016, "dom_column": 10, "dom_line": 255, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 255, "static_call_context":
+      ["js-call_edges-a73f92e920f657e46a21"]}
+  e-226e13d9beca8f55c92e: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 257, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 257, "static_call_context":
+      ["js-call_edges-a73f92e920f657e46a21"]}
+  e-59e0a146ef9e4ec5dde9: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 258, "interaction_kind": "content_replacement",
+      "line": 1, "script_column": 8, "script_index": 9, "script_line": 258, "static_call_context":
+      ["js-call_edges-a73f92e920f657e46a21"]}
+  e-a5686b1a2cd482561670: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 259, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      259, "static_call_context": ["js-call_edges-a73f92e920f657e46a21"], "static_path_context":
+      [["js-predicate-c1e581d4207c1aeb7c6f"], "conditional"]}
+  e-66a7e3b2897da2409c4c: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 259, "interaction_kind": "class_mutation", "line":
+      1, "script_column": 8, "script_index": 9, "script_line": 259, "static_call_context":
+      ["js-call_edges-a73f92e920f657e46a21"]}
+  e-db686699627549f98252: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 262, "interaction_kind": "handler", "line": 1,
+      "script_column": 8, "script_index": 9, "script_line": 262, "static_call_context":
+      ["js-call_edges-a73f92e920f657e46a21"]}
+  e-6893705189e32772650e: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 262, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      262, "static_call_context": ["js-call_edges-a73f92e920f657e46a21"], "static_path_context":
+      [["js-predicate-c1e581d4207c1aeb7c6f"], "conditional"]}
+  e-6a3287c76e7bfdbd2bb7: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 12, "dom_line": 340, "interaction_kind": "availability", "line":
+      1, "script_column": 12, "script_index": 9, "script_line": 340}
+  e-b90bd3acea0fe568c2b8: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 12, "dom_line": 341, "interaction_kind": "content_replacement",
+      "line": 1, "script_column": 12, "script_index": 9, "script_line": 341}
+  e-427f6957cc3079dae3aa: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 12, "dom_line": 342, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 12, "script_index": 9, "script_line":
+      342, "static_path_context": [[], "unconditional"]}
+  e-b4a9bc48ebdbe58ef518: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 12, "dom_line": 342, "interaction_kind": "class_mutation",
+      "line": 1, "script_column": 12, "script_index": 9, "script_line": 342}
+  e-4291f9b15f47ddc5f24e: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 12, "dom_line": 345, "interaction_kind": "field_reset", "line":
+      1, "script_column": 12, "script_index": 9, "script_line": 345}
+  e-5185cfdde8793d8a4f0f: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 12, "dom_line": 346, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 12, "script_index": 9, "script_line":
+      346, "static_path_context": [[], "unconditional"]}
+  e-1d38f49f212a05528327: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 17, "dom_line": 347, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 17, "script_index": 9, "script_line":
+      347, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-2c43018e661ac00d1b4e: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 334, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      334, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-f45fab5035673c9bf8d0: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 350, "kind":
+      "static_call", "line": 1, "marker": "js-functions-255c4105391caa2ac773", "script_column": 8,
+      "script_index": 9, "script_line": 350, "static_path_context": [["js-predicate-92aec1125a3d9a971f34",
+      "js-predicate-134a0ceccabd7bd70f68", "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-bed3a96f9cab90565a93: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "errorMessage", "column": 3016, "dom_column": 10, "dom_line": 254, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 254, "static_call_context":
+      ["js-call_edges-12d96891b05eeb04cfde"]}
+  e-337babc05cb082647db2: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "errorText", "column": 3016, "dom_column": 10, "dom_line": 255, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 255, "static_call_context":
+      ["js-call_edges-12d96891b05eeb04cfde"]}
+  e-16db05f227f157351a84: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 257, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 257, "static_call_context":
+      ["js-call_edges-12d96891b05eeb04cfde"]}
+  e-0ce475bb565e1265d5c9: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 258, "interaction_kind": "content_replacement",
+      "line": 1, "script_column": 8, "script_index": 9, "script_line": 258, "static_call_context":
+      ["js-call_edges-12d96891b05eeb04cfde"]}
+  e-a23daf685f9b68c9620d: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 259, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      259, "static_call_context": ["js-call_edges-12d96891b05eeb04cfde"], "static_path_context":
+      [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d", "js-predicate-f8f3fba63a7b26412bdc"], "unresolved"]}
+  e-c133d7a3e1f19bbe506b: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 259, "interaction_kind": "class_mutation", "line":
+      1, "script_column": 8, "script_index": 9, "script_line": 259, "static_call_context":
+      ["js-call_edges-12d96891b05eeb04cfde"]}
+  e-0f0188da78f7c6823fc9: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 262, "interaction_kind": "handler", "line": 1,
+      "script_column": 8, "script_index": 9, "script_line": 262, "static_call_context":
+      ["js-call_edges-12d96891b05eeb04cfde"]}
+  e-5d50c96722cb6e7b9b58: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 262, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      262, "static_call_context": ["js-call_edges-12d96891b05eeb04cfde"], "static_path_context":
+      [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d", "js-predicate-f8f3fba63a7b26412bdc"], "unresolved"]}
+  e-4e3ccb26f14d36a317d8: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 351, "interaction_kind": "availability", "line":
+      1, "script_column": 8, "script_index": 9, "script_line": 351}
+  e-f453e6543133765275ef: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 352, "interaction_kind": "content_replacement",
+      "line": 1, "script_column": 8, "script_index": 9, "script_line": 352}
+  e-280f0100418ef439d83f: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 353, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      353, "static_path_context": [["js-predicate-92aec1125a3d9a971f34", "js-predicate-134a0ceccabd7bd70f68",
+      "js-predicate-405c2365402115f2497d"], "unresolved"]}
+  e-e1705a511546ccfbf78b: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 353, "interaction_kind": "class_mutation", "line":
+      1, "script_column": 8, "script_index": 9, "script_line": 353}
+  e-8ad4d9cf6e4198e15b77: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 4, "dom_line": 360, "kind":
+      "static_call", "line": 1, "marker": "js-functions-255c4105391caa2ac773", "script_column": 4,
+      "script_index": 9, "script_line": 360, "static_path_context": [[], "unconditional"]}
+  e-7cee2be0186fe72d85e4: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "errorMessage", "column": 3016, "dom_column": 10, "dom_line": 254, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 254, "static_call_context":
+      ["js-call_edges-b508cc403465d8969e97"]}
+  e-9dae6b4b242f35bc5b6c: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "errorText", "column": 3016, "dom_column": 10, "dom_line": 255, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 255, "static_call_context":
+      ["js-call_edges-b508cc403465d8969e97"]}
+  e-6c8c62c430ca6221887e: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 257, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 257, "static_call_context":
+      ["js-call_edges-b508cc403465d8969e97"]}
+  e-b608efbd9454f4b6ca6e: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 258, "interaction_kind": "content_replacement",
+      "line": 1, "script_column": 8, "script_index": 9, "script_line": 258, "static_call_context":
+      ["js-call_edges-b508cc403465d8969e97"]}
+  e-8e585be76afe7d23506d: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 259, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      259, "static_call_context": ["js-call_edges-b508cc403465d8969e97"], "static_path_context":
+      [["js-predicate-945b79f2584e706f3c15"], "conditional"]}
+  e-1b2b162772202ec199e4: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 259, "interaction_kind": "class_mutation", "line":
+      1, "script_column": 8, "script_index": 9, "script_line": 259, "static_call_context":
+      ["js-call_edges-b508cc403465d8969e97"]}
+  e-9951459cb0973578e35d: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 262, "interaction_kind": "handler", "line": 1,
+      "script_column": 8, "script_index": 9, "script_line": 262, "static_call_context":
+      ["js-call_edges-b508cc403465d8969e97"]}
+  e-0dede417604eaca39ad9: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 262, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      262, "static_call_context": ["js-call_edges-b508cc403465d8969e97"], "static_path_context":
+      [["js-predicate-945b79f2584e706f3c15"], "conditional"]}
+  e-f24341eb43de4ef422d1: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 11, "dom_line": 366, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 11, "script_index": 9, "script_line":
+      366, "static_path_context": [[], "unconditional"]}
+  e-5304b91f4c18a7b944b7: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 4, "dom_line": 363, "kind":
+      "static_call", "line": 1, "marker": "js-functions-9607621015277920bac8", "script_column": 4,
+      "script_index": 9, "script_line": 363, "static_path_context": [[], "unconditional"]}
+  e-d77a0afb31fd9082a432: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 4, "dom_line": 373, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 4, "script_index": 9, "script_line":
+      373, "static_path_context": [[], "unconditional"]}
+  e-9868f95e132259bc88c1: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 46, "dom_line": 378, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 46, "script_index": 9, "script_line": 378,
+      "static_path_context": [[], "unconditional"]}
+  e-884d989eb4eb3a7f865f: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 4, "dom_line": 380, "kind":
+      "static_call", "line": 1, "marker": "js-functions-827751e0a60c9a5db22c", "script_column": 4,
+      "script_index": 9, "script_line": 380, "static_path_context": [[], "unconditional"]}
+  e-f8bf0ab363c5e9397b74: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "modal", "column": 3016, "dom_column": 10, "dom_line": 152, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 152, "static_call_context":
+      ["js-call_edges-d4bf47b868fd918d7f07"]}
+  e-fdbe520df9effec2890d: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 153, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 153, "static_call_context":
+      ["js-call_edges-d4bf47b868fd918d7f07"]}
+  e-cd565beb1e4a9cfb74ef: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 154, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      154, "static_call_context": ["js-call_edges-d4bf47b868fd918d7f07"], "static_path_context":
+      [["js-predicate-203b7604c4ba84fe3425"], "conditional"]}
+  e-084f107b5623340ba13b: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 154, "interaction_kind": "class_mutation", "line":
+      1, "script_column": 8, "script_index": 9, "script_line": 154, "static_call_context":
+      ["js-call_edges-d4bf47b868fd918d7f07"]}
+  e-4fd400901d73f5a05c76: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 157, "interaction_kind": "handler", "line": 1,
+      "script_column": 8, "script_index": 9, "script_line": 157, "static_call_context":
+      ["js-call_edges-d4bf47b868fd918d7f07"]}
+  e-bbd4ede89436d8b3e131: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 157, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      157, "static_call_context": ["js-call_edges-d4bf47b868fd918d7f07"], "static_path_context":
+      [["js-predicate-203b7604c4ba84fe3425"], "conditional"]}
+  e-22b4d7b27d1a1733864f: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "modal", "column": 3016, "dom_column": 10, "dom_line": 383, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 383}
+  e-2750bf004e83aedda9a4: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 52, "dom_line": 386, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 52, "script_index": 9, "script_line": 386,
+      "static_path_context": [[], "unconditional"]}
+  e-359fe69bb18eb882c69a: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 8, "dom_line": 387, "interaction_kind": "handler", "line": 1,
+      "script_column": 8, "script_index": 9, "script_line": 387}
+  e-0e98345f20340139ab1b: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 8, "dom_line": 387, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 8, "script_index": 9, "script_line":
+      387, "static_path_context": [[], "unconditional"]}
+  e-c1037c05b6263ae04896: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 4, "dom_line": 386, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 4, "script_index": 9, "script_line":
+      386, "static_path_context": [[], "unconditional"]}
+  e-1eba432268762265ddb4: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 45, "dom_line": 391, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 45, "script_index": 9, "script_line": 391,
+      "static_path_context": [[], "unconditional"]}
+  e-b7e6549a6be0ceff58c5: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 12, "dom_line": 392, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 12, "script_index": 9, "script_line":
+      392, "static_path_context": [[], "unconditional"]}
+  e-fd55200eb5e0b4adc2bf: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 12, "dom_line": 392, "line": 1,
+      "polarity": true, "script_column": 12, "script_index": 9, "script_line": 392}
+  e-6b396c4fc73f1a9073bb: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 12, "dom_line": 393, "interaction_kind": "default_cancel",
+      "line": 1, "script_column": 12, "script_index": 9, "script_line": 393}
+  e-3bdae58ffdef9b70d90e: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 12, "dom_line": 393, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 12, "script_index": 9, "script_line":
+      393, "static_path_context": [["js-predicate-9103bfd84851c1939e82"], "conditional"]}
+  e-4753985f32007c2d4288: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 4, "dom_line": 391, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 4, "script_index": 9, "script_line":
+      391, "static_path_context": [[], "unconditional"]}
+  e-98de1cc4ffffb13d4f39: static_code / referenced; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 18, "dom_line": 398, "kind":
+      "static_call", "line": 1, "marker": "js-functions-483c664c1a5b82940386", "script_column": 18,
+      "script_index": 9, "script_line": 398, "static_path_context": [[], "unconditional"]}
+  e-f26f174a2d81ec4a4969: static_code / referenced; Immutable lexical binding used only as static predicate
+    support
+    location: {"binding": "email", "column": 3016, "dom_column": 10, "dom_line": 398, "line": 1,
+      "script_column": 10, "script_index": 9, "script_line": 398}
+  e-c1e27d6c927b3cf0bb17: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 8, "dom_line": 399, "line": 1,
+      "polarity": true, "script_column": 8, "script_index": 9, "script_line": 399}
+  e-2375c4c403d634fb72a4: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "sinks", "column": 3016, "dom_column": 8, "dom_line": 400, "kind":
+      "browser_storage_write", "line": 1, "marker": "prefilled_email", "script_column": 8, "script_index": 9,
+      "script_line": 400, "static_path_context": [["js-predicate-23784a054172c4ee9dc0"], "conditional"]}
+  e-ac2e00f8620ca74ade22: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 4, "dom_line": 404, "interaction_kind": "handler", "line": 1,
+      "script_column": 4, "script_index": 9, "script_line": 404}
+  e-0d26cb3be1fcd2ec6231: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 15, "dom_line": 404, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 15, "script_index": 9, "script_line": 404,
+      "static_path_context": [[], "unconditional"]}
+  e-6f4d2270fd54052cb983: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 12, "dom_line": 405, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 12, "script_index": 9, "script_line":
+      405, "static_path_context": [[], "unconditional"]}
+  e-8a29ff968df897713fde: static_code / referenced; Static control predicate; satisfaction and execution not
+    established
+    location: {"category": "path_condition", "column": 3016, "dom_column": 12, "dom_line": 405, "line": 1,
+      "polarity": true, "script_column": 12, "script_index": 9, "script_line": 405}
+  e-12335d070310922e3d0c: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 60, "dom_line": 406, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 60, "script_index": 9, "script_line": 406,
+      "static_path_context": [[], "unconditional"]}
+  e-d55c36b3e8faad4a0526: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "sinks", "column": 3016, "dom_column": 12, "dom_line": 406, "kind": "fetch",
+      "line": 1, "marker": null, "script_column": 12, "script_index": 9, "script_line": 406,
+      "static_path_context": [["js-predicate-efbc21aca85639bed9aa"], "conditional"]}
+  e-9242f8a4d683b041a040: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 12, "dom_line": 406, "interaction_kind": "request", "line": 1,
+      "script_column": 12, "script_index": 9, "script_line": 406}
+  e-ddd0a11034da5eb21bb8: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 12, "dom_line": 406, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 12, "script_index": 9, "script_line":
+      406, "static_path_context": [["js-predicate-efbc21aca85639bed9aa"], "conditional"]}
+  e-eb7a3519c0c633092138: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "functions", "column": 3016, "dom_column": 64, "dom_line": 407, "kind":
+      "local_function", "line": 1, "marker": null, "script_column": 64, "script_index": 9, "script_line": 407,
+      "static_path_context": [[], "unconditional"]}
+  e-3b05803f0d107b1ee90c: static_code / declared; Preserved JavaScript syntax; execution not established
+    location: {"category": "sinks", "column": 3016, "dom_column": 12, "dom_line": 407, "kind": "fetch",
+      "line": 1, "marker": null, "script_column": 12, "script_index": 9, "script_line": 407,
+      "static_path_context": [["js-predicate-efbc21aca85639bed9aa"], "conditional"]}
+  e-a31e98dbed534eb69eab: static_code / declared; Static interaction declaration; runtime execution not
+    established
+    location: {"column": 3016, "dom_column": 12, "dom_line": 407, "interaction_kind": "request", "line": 1,
+      "script_column": 12, "script_index": 9, "script_line": 407}
+  e-8a43f288fe6c6eb8a9ed: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 12, "dom_line": 407, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 12, "script_index": 9, "script_line":
+      407, "static_path_context": [["js-predicate-efbc21aca85639bed9aa"], "conditional"]}
+  e-3104e5be05d01d745cfd: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 4, "dom_line": 404, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 4, "script_index": 9, "script_line":
+      404, "static_path_context": [[], "unconditional"]}
+  e-9672d7727ca5242cc9ff: static_code / unresolved; Preserved JavaScript syntax; execution not established
+    location: {"category": "call_edges", "column": 3016, "dom_column": 0, "dom_line": 378, "kind":
+      "static_call", "line": 1, "marker": "unresolved", "script_column": 0, "script_index": 9, "script_line":
+      378, "static_path_context": [[], "unconditional"]}
+  e-c7c0b1ff7b6062092ce0: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"json_pointer": "/data/requests/2"}
+  e-e5e4f1308a9584220c7d: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"json_pointer": "/data/requests/3"}
+  e-79a393c28588a7f18dd0: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"json_pointer": "/data/requests/4"}
+  e-3a8a01bc42f8643f41e6: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"json_pointer": "/data/requests/5"}
+  e-cf2b0298e98cb650caa7: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"json_pointer": "/data/requests/6"}
+  e-a79efe3e3fd70a00202a: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"json_pointer": "/data/requests/12"}
+  e-d1bb12e9503caf6dc07c: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/0/request/request"}
+  e-8fe60a33dbdd2bf21cc6: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/1/request/request"}
+  e-08c002a59c8086625100: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/2/request/request"}
+  e-82c1b056bdf3c7c080e6: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/3/request/request"}
+  e-d2deb8ff88eea81e2b25: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/4/request/request"}
+  e-98a485a6e7b71cc4cfeb: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/5/request/request"}
+  e-e8b9a29bba07cf99008b: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/6/request/request"}
+  e-c07827ec7c8b955201f3: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/7/request/request"}
+  e-26b7bd0dfa5db1346a91: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/8/request/request"}
+  e-56641f2a263147db4ec5: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/9/request/request"}
+  e-43d9426fe966f3094576: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/10/request/request"}
+  e-e612a02aa0d0633b3303: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/11/request/request"}
+  e-d389d321dd7a2a339d59: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/12/request/request"}
+  e-907e1def830d502d372c: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/13/request/request"}
+  e-9b7221c362a8e61bd7fd: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/14/request/request"}
+  e-46b60888c098ddfdb256: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/15/request/request"}
+  e-785e8adae45fd2b90782: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/16/request/request"}
+  e-501034d88a2cad6f6ca2: dom_markup / observed; Interaction element markup preserved; runtime visibility
+    unresolved
+    location: {"column": 2044, "line": 1}
+  e-c7bc9cdc00409cc638f0: dom_markup / observed; Interaction element markup preserved; runtime visibility
+    unresolved
+    location: {"column": 1960, "line": 1}
+  e-992342e3fe77868ad0d1: dom_markup / observed; Interaction element markup preserved; runtime visibility
+    unresolved
+    location: {"column": 2070, "line": 1}
+  e-1fe7349e1860d5b91011: dom_markup / observed; Interaction element markup preserved; runtime visibility
+    unresolved
+    location: {"column": 2298, "line": 1}
+  e-5ac39ba272debb3146f5: dom_markup / observed; Interaction element markup preserved; runtime visibility
+    unresolved
+    location: {"column": 2275, "line": 1}
+  e-671363584b585aec5931: dom_markup / observed; Interaction element markup preserved; runtime visibility
+    unresolved
+    location: {"column": 2345, "line": 1}
+  e-ebdc2101b02627fc367b: dom_markup / observed; Interaction element markup preserved; runtime visibility
+    unresolved
+    location: {"column": 2178, "line": 1}
+  not observed != does not exist
+  JavaScript not executed; local static flows do not establish submission or receipt.

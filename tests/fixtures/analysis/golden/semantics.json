@@ -1,0 +1,1785 @@
+{
+  "static-only": {
+    "schema_version": "1.0",
+    "findings": [
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "POST",
+          "target": "https://e.test/api",
+          "encoding": "json",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "body_unavailable",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      }
+    ],
+    "coverage": {
+      "result": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": null
+      },
+      "requests": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 0
+      },
+      "redirects": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "cookies": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "storages": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "websockets": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "console": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "request_payloads": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 0
+      },
+      "frames": {
+        "availability": "unavailable",
+        "inspection": "partial",
+        "count": null
+      },
+      "dom": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 2
+      },
+      "external_script_sources": {
+        "availability": "not_requested",
+        "inspection": "not_supported",
+        "count": null
+      },
+      "javascript": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "request_bodies": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 0
+      },
+      "interaction": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "findings": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      }
+    }
+  },
+  "runtime-endpoint": {
+    "schema_version": "1.0",
+    "findings": [
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "POST",
+          "target": "https://e.test/api",
+          "encoding": "json",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "compatible_request_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_with_runtime_endpoint",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      }
+    ],
+    "coverage": {
+      "result": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": null
+      },
+      "requests": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "redirects": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "cookies": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "storages": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "websockets": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "console": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "request_payloads": {
+        "availability": "available",
+        "inspection": "partial",
+        "count": 1
+      },
+      "frames": {
+        "availability": "available",
+        "inspection": "partial",
+        "count": 1
+      },
+      "dom": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 2
+      },
+      "external_script_sources": {
+        "availability": "not_requested",
+        "inspection": "not_supported",
+        "count": null
+      },
+      "javascript": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "request_bodies": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "interaction": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "findings": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      }
+    }
+  },
+  "payload-support": {
+    "schema_version": "1.0",
+    "findings": [
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "POST",
+          "target": "https://e.test/api",
+          "encoding": "json",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "compatible_request_observed",
+        "payload_support": "structurally_correlated",
+        "evidence_state": "static_with_runtime_and_interaction_context",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      }
+    ],
+    "coverage": {
+      "result": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": null
+      },
+      "requests": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "redirects": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "cookies": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "storages": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "websockets": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "console": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "request_payloads": {
+        "availability": "available",
+        "inspection": "partial",
+        "count": 1
+      },
+      "frames": {
+        "availability": "available",
+        "inspection": "partial",
+        "count": 1
+      },
+      "dom": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 2
+      },
+      "external_script_sources": {
+        "availability": "not_requested",
+        "inspection": "not_supported",
+        "count": null
+      },
+      "javascript": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "request_bodies": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "interaction": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "findings": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      }
+    }
+  },
+  "interaction-support": {
+    "schema_version": "1.0",
+    "findings": [
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "POST",
+          "target": "https://e.test/api",
+          "encoding": "json",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "compatible_request_observed",
+        "payload_support": "structurally_correlated",
+        "evidence_state": "static_with_runtime_and_interaction_context",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      }
+    ],
+    "coverage": {
+      "result": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": null
+      },
+      "requests": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "redirects": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "cookies": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "storages": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "websockets": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "console": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "request_payloads": {
+        "availability": "available",
+        "inspection": "partial",
+        "count": 1
+      },
+      "frames": {
+        "availability": "available",
+        "inspection": "partial",
+        "count": 1
+      },
+      "dom": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 2
+      },
+      "external_script_sources": {
+        "availability": "not_requested",
+        "inspection": "not_supported",
+        "count": null
+      },
+      "javascript": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "request_bodies": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "interaction": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "findings": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      }
+    }
+  },
+  "unavailable": {
+    "schema_version": "1.0",
+    "findings": [],
+    "coverage": {
+      "result": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": null
+      },
+      "requests": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "redirects": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "cookies": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "storages": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "websockets": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "console": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "request_payloads": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "frames": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "dom": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "external_script_sources": {
+        "availability": "not_requested",
+        "inspection": "not_supported",
+        "count": null
+      },
+      "javascript": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": 0
+      },
+      "request_bodies": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "interaction": {
+        "availability": "unavailable",
+        "inspection": "partial",
+        "count": 0
+      },
+      "findings": {
+        "availability": "available",
+        "inspection": "partial",
+        "count": 0
+      }
+    }
+  },
+  "truncation": {
+    "schema_version": "1.0",
+    "findings": [
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/0",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/1",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/10",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/11",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/12",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/13",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/14",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/15",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/16",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/17",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/18",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/19",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/2",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/20",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/21",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/22",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/23",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/24",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/25",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/26",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/27",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/28",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/29",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/3",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/30",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/31",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/32",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/33",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/34",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/35",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/36",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/37",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/38",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/39",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/4",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/40",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/41",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/42",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/43",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/44",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/45",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/46",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/47",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/48",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/49",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/5",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/50",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/51",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/52",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/53",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/54",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/55",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/56",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/57",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/58",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/59",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/6",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/60",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/61",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/62",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/63",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/64",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/65",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      },
+      {
+        "kind": "sensitive_input_to_request",
+        "source_roles": [
+          "password"
+        ],
+        "sink": {
+          "kind": "fetch",
+          "method": "GET",
+          "target": "https://e.test/api/66",
+          "encoding": "unknown_expression",
+          "channel": "body"
+        },
+        "static_path_state": "unconditional",
+        "runtime_support": "not_observed",
+        "payload_support": "unresolved",
+        "evidence_state": "static_only",
+        "flow_execution": "not_established",
+        "value_relationship": "unresolved"
+      }
+    ],
+    "coverage": {
+      "result": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": null
+      },
+      "requests": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 0
+      },
+      "redirects": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "cookies": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "storages": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "websockets": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "console": {
+        "availability": "unavailable",
+        "inspection": "not_run",
+        "count": null
+      },
+      "request_payloads": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 0
+      },
+      "frames": {
+        "availability": "unavailable",
+        "inspection": "partial",
+        "count": null
+      },
+      "dom": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 2
+      },
+      "external_script_sources": {
+        "availability": "not_requested",
+        "inspection": "not_supported",
+        "count": null
+      },
+      "javascript": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "request_bodies": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 0
+      },
+      "interaction": {
+        "availability": "available",
+        "inspection": "complete",
+        "count": 1
+      },
+      "findings": {
+        "availability": "available",
+        "inspection": "partial",
+        "count": 64
+      }
+    }
+  }
+}

@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "urlscanx"
-version = "0.3.0"
-description = "Small CLI for inspecting and comparing urlscan.io results."
+version = "0.12.0"
+description = "A passive CLI for inspecting, comparing and analyzing completed urlscan.io scans."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 authors = [{name = "urlscanx contributors"}]
-dependencies = []
+dependencies = ["esprima2==6.0.0"]
 
 [project.scripts]
 urlscanx = "urlscanx.cli:main"

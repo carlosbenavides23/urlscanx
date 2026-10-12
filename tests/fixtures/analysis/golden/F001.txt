@@ -1,0 +1,67 @@
+urlscanx analysis
+Scan: 01a0fdb8-49c1-736c-8b74-e2263e77019d
+Time: 2026-10-02T17:45:13.767Z
+Origin: https://secure-hub-eir.pages.dev
+
+Analysis summary
+  Sensitive static request findings: 1 supported; inspection partial
+  Runtime-supported findings: 0 observed
+  Runtime payload structure support: unavailable
+  Interaction stage candidates: 1
+  Unresolved targets: 0 supported; inspection partial
+  TRUNCATED: JavaScript, JavaScript path analysis; findings and counts may be incomplete
+  Execution of static flows is not established.
+  Structural payload correlation does not establish source value equality.
+
+Analyst findings
+  Evidence synthesis; execution and source value identity not established.
+  1. password-semantic input, username-semantic input: static request flow
+    password-semantic input, username-semantic input
+      -> json; channel: body
+      -> POST https://secure-hub-eir.pages.dev/api/collect
+    static serialized fields: $.email, $.password
+    static path: unresolved
+    execution context: function declared only; flow execution: not established
+    runtime request: not observed
+    runtime payload structure: unavailable; value relationship: unresolved
+    stage association: identifier, password; stage execution not established
+
+Input / interaction overview
+  DOM markup: 1 forms; 3 controls
+  Controls: generic text 1, password 1, username 1
+  Form: markup form method GET / target https://secure-hub-eir.pages.dev/
+  Runtime submission not established; markup handlers may override or cancel form behavior.
+  Stage candidates: 1; ordering and runtime interaction not established.
+    Stage candidate: identifier, password
+  Prefill: unresolved; 2 records; path: conditional; final submitted values unresolved
+  Prefill: unresolved; path: unresolved; final submitted values unresolved
+  Retry behavior: unresolved
+
+Request / payload evidence summary
+  Request bodies: unavailable; not preserved does not mean empty
+
+Notable static JavaScript evidence
+  Scripts: 4 parsed, 12 unavailable
+  3 static flows; 1 outside primary findings (--verbose for provenance)
+
+Runtime observations
+  17 preserved requests: GET 16, POST 1
+  Repeated endpoint: 2 requests; GET 2
+    https://c.s-microsoft.com/favicon.ico?v2=[omitted]
+  WebSocket: not observed (0 preserved)
+  cookies: 0 snapshot entries; values omitted
+  storages: 0 snapshot entries; values omitted
+
+Coverage / limitations
+  requests: complete; 17 preserved records
+  dom: complete; 3 markup controls
+  javascript: truncated; 16 script records
+    Limited static syntax and local flow subset; execution not performed
+  request bodies: unavailable
+  interaction: partial; 1 stage candidates
+    Bounded static declarations; snapshot and network do not establish interaction execution
+  findings: partial; 1 composed findings
+    synthesis complete within its budget; lower-layer inspection partial
+    Read-only bounded evidence synthesis; execution and value identity unresolved
+  not observed != does not exist
+  JavaScript not executed; local static flows do not establish submission or receipt.

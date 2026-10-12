@@ -11,7 +11,7 @@ import zlib
 import time
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
-from urllib.request import Request, urlopen
+from urllib.request import HTTPRedirectHandler, Request, build_opener, urlopen
 
 from . import __version__
 
@@ -60,7 +60,25 @@ def api_key() -> str:
     return key
 
 
-def _get(path: str, key: str, *, allow_not_found: bool = False) -> bytes | None:
+class _ArtifactRedirectHandler(HTTPRedirectHandler):
+    """Analysis retrieval never follows a redirect to a target or another host."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        try:
+            parsed = urlsplit(newurl)
+            previous = urlsplit(req.full_url)
+            allowed = (parsed.scheme == "https" and parsed.hostname == "urlscan.io"
+                       and parsed.port in (None, 443) and parsed.username is None
+                       and parsed.password is None and not parsed.query and not parsed.fragment
+                       and parsed.path.rstrip("/") == previous.path.rstrip("/"))
+        except ValueError:
+            allowed = False
+        if not allowed:
+            raise ScanError("urlscan artifact redirect outside the permitted host was blocked.")
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+def _get(path: str, key: str, *, allow_not_found: bool = False, artifact_only: bool = False) -> bytes | None:
     request = Request(
         f"{BASE}{path}",
         headers={
@@ -70,9 +88,10 @@ def _get(path: str, key: str, *, allow_not_found: bool = False) -> bytes | None:
             "Accept-Encoding": "gzip, deflate",
         },
     )
+    opener = build_opener(_ArtifactRedirectHandler()).open if artifact_only else urlopen
     for attempt in range(3):
         try:
-            with urlopen(request, timeout=20) as response:
+            with opener(request, timeout=20) as response:
                 raw = response.read()
                 encoding = response.headers.get("Content-Encoding", "").strip().lower()
                 if encoding in ("", "identity"):
@@ -109,8 +128,8 @@ def _get(path: str, key: str, *, allow_not_found: bool = False) -> bytes | None:
     raise ScanError("urlscan request failed. Try again.")
 
 
-def fetch_result(scan_id: str, key: str) -> dict:
-    raw = _get(f"/api/v1/result/{scan_id}/", key)
+def fetch_result(scan_id: str, key: str, *, artifact_only: bool = False) -> dict:
+    raw = _get(f"/api/v1/result/{scan_id}/", key, artifact_only=artifact_only)
     assert raw is not None
     try:
         data = json.loads(raw)
@@ -121,9 +140,9 @@ def fetch_result(scan_id: str, key: str) -> dict:
     return data
 
 
-def fetch_asset(scan_id: str, kind: str, key: str, *, optional: bool = False) -> bytes | None:
+def fetch_asset(scan_id: str, kind: str, key: str, *, optional: bool = False, artifact_only: bool = False) -> bytes | None:
     if kind == "dom":
-        return _get(f"/dom/{scan_id}/", key, allow_not_found=optional)
+        return _get(f"/dom/{scan_id}/", key, allow_not_found=optional, artifact_only=artifact_only)
     if kind == "screenshot":
-        return _get(f"/screenshots/{scan_id}.png", key, allow_not_found=optional)
+        return _get(f"/screenshots/{scan_id}.png", key, allow_not_found=optional, artifact_only=artifact_only)
     raise ValueError("Unknown asset kind")

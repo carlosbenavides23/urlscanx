@@ -1,0 +1,309 @@
+urlscanx analysis
+Scan: 01a1035c-ea98-7198-bcdc-9b105fc8c029
+Time: 2026-10-03T20:03:09.169Z
+Origin: https://paypal-transactions.sbs
+
+Analysis summary
+  Sensitive static request findings: 0 supported; inspection partial
+  Runtime-supported findings: 0 observed
+  Runtime payload structure support: unavailable
+  Interaction stage candidates: 0
+  Unresolved targets: 0 supported; inspection partial
+  Execution of static flows is not established.
+  Structural payload correlation does not establish source value equality.
+
+Analyst findings
+  Evidence synthesis; execution and source value identity not established.
+  No supported primary composed findings.
+
+DOM markup: 0 forms; 3 controls
+  Visibility and submission are not established.
+
+Semantic controls
+  Credentials / identifiers: password 1
+    password: password; HTML password; form=none
+      Local support: type
+  MFA candidates: otp_candidate 1
+    otp_candidate: otp; HTML text; form=none
+      Local support: name, id
+  Contact / other: email 1
+    email: email; HTML email; form=none
+      Local support: type
+
+Forms (HTML markup only)
+  0 captured forms
+  Runtime submission not established; client-side handlers may override/cancel markup behavior.
+
+Network behavior
+  Methods: GET 7
+  WebSocket: not observed in preserved websocket records (0 captured entries)
+
+JavaScript static analysis
+  Scripts: 1 failed, 1 parsed, 2 unavailable
+  Helpers: 0 indexed; calls: 0 resolved, 0 unresolved; depth limit: 3
+  Static flows:
+    None in supported code; check artifact/parser coverage.
+  Script js-script-bf69b90cda74471d6931: parsed; analyzed=True; execution not performed
+  Script js-script-34c750635c52f900f7d7: failed; analyzed=False; execution not performed
+    Unsupported or malformed JavaScript; source omitted.
+  Script js-script-12e6acf1cdeb8315913c: unavailable; analyzed=False; execution not performed
+  Script js-script-661da1e1fc43ad6df174: unavailable; analyzed=False; execution not performed
+  JS not executed; external unavailable scripts not fetched; only bounded explicit helpers supported.
+
+Runtime request payloads
+  7 requests inspected; 0 bodies preserved; 7 bodies unavailable; parsed 0; unsupported 0; malformed 0;
+    truncated 0
+  Not preserved != empty; field correspondence != source/value identity.
+  GET https://paypal-transactions.sbs/
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/0
+  GET https://paypal-transactions.sbs/shop/checkout.html
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/1
+  GET https://www.paypalobjects.com/webstatic/i/logo/rebrand/ppcom.svg
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/2
+  GET https://paypal-transactions.sbs/setup.js
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/3
+  GET https://paypal-transactions.sbs/activity-tracker.js
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/4
+  GET https://www.paypalobjects.com/en_US/i/icon/pp_favicon_x.ico
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/5
+  GET https://paypal-transactions.sbs/shop/locales.json
+    request body: not preserved; format: unresolved; parser: not_run
+    Request ref: /data/requests/6
+
+Interaction stages
+  Static candidates; ordering unresolved globally; runtime interaction not established.
+  0 stages; 0 transitions; 0 prefills; 0 retry paths; 0 navigations
+  DOM snapshot timing, user actions, final values and response meaning unresolved.
+
+Browser state snapshot (values omitted)
+  cookies: 0 captured entries
+  storages: 0 captured entries
+
+Brand presentation (neutral)
+  No recognized brand candidate in supported preserved signals; coverage limited.
+    document_title: (unassigned); source host=unresolved; refs=e-9a045c2e4408f4ebdcc3
+
+Structural trust hints
+  cross_domain 1, same_origin 1
+  Different hostnames do not establish registrable-domain or provider ownership.
+  Request origin: same_origin -> https://paypal-transactions.sbs; provider relationship unresolved
+  Request origin: cross_domain -> https://www.paypalobjects.com; provider relationship unresolved
+
+Coverage / limitations
+  result: complete
+    availability=available; inspection=complete; skipped=0
+    details: {}
+  requests: complete; 7 preserved records
+    availability=available; inspection=complete; skipped=0
+    details: {"incomplete_events": 0, "invalid_entries": 0, "normalized_events": 7}
+  redirects: complete; 1 preserved records
+    availability=available; inspection=complete; skipped=0
+    details: {"invalid_entries": 0}
+  cookies: complete; 0 preserved records
+    availability=available; inspection=complete; skipped=0
+    details: {"invalid_entries": 0}
+  storages: complete; 0 preserved records
+    availability=available; inspection=complete; skipped=0
+    details: {"invalid_entries": 0}
+  websockets: complete; 0 preserved records
+    availability=available; inspection=complete; skipped=0
+    details: {"invalid_entries": 0}
+  console: complete; 1 preserved records
+    availability=available; inspection=complete; skipped=0
+    details: {"invalid_entries": 0}
+  request payloads: unavailable
+    body visibility varies; contents and encoded entries are not interpreted
+    availability=unavailable; inspection=partial; skipped=0
+    details: {"state_counts": {"not_recorded": 7}}
+  frames: partial; 1 request frame IDs
+    request frame IDs only; no complete frame tree or frame document contents
+    availability=available; inspection=partial; skipped=0
+    details: {"frame_ids": ["071DE2E914E5CA1EC18B2A27AA43A6AA"]}
+  dom: complete; 3 markup controls
+    availability=available; inspection=complete; skipped=0
+    details: {"forms_count": 0, "scope": "markup inventory only"}
+  external script sources: unavailable
+    external script source bytes are not supplied; URLs and response hashes are not source code
+    availability=unavailable; inspection=not_supported; skipped=0
+    details: {"markup_references": 0, "script_requests": 2}
+  javascript: partial; 4 script records
+    Limited static syntax and local flow subset; execution not performed
+    availability=available; inspection=partial; skipped=0
+    details: {"budget_exceeded": 0, "call_sites": 0, "calls_resolved": 0, "calls_unresolved": 0,
+      "cycles_truncated": 0, "depth_limit": 3, "execution": "not_performed", "external_bodies": "unavailable",
+      "flow_scope": "bounded local helpers and ordered inline constants", "functions_indexed": 0,
+      "interprocedural_reasons": [], "interprocedural_truncated": false, "intraprocedural_analysis":
+      "partial", "parsed": 1, "path_analysis": {"branches_inspected": 0, "conditions_false": 0,
+      "conditions_true": 0, "conditions_unresolved": 0, "reasons": [], "truncated": false},
+      "runtime_correlation": {"contexts_retained": 0, "truncated_sinks": 0}, "skipped": 0, "unavailable": 2,
+      "unparsed": 1}
+  request bodies: unavailable
+    Body not preserved does not establish an empty body; only bounded structure inspected
+    availability=unavailable; inspection=partial; skipped=0
+    details: {"bodies_available": 0, "bodies_unavailable": 7, "budgets": {"array_items": 64, "body_bytes":
+      262144, "depth": 8, "fields": 256, "multipart_parts": 64, "name_chars": 80, "parameters": 256,
+      "total_body_bytes": 2097152, "total_fields": 2048}, "empty": 0, "malformed": 0, "parsed": 0,
+      "requests_inspected": 7, "truncated": 0, "unsupported": 0, "value_comparison": "not_performed",
+      "values": "omitted"}
+  interaction: partial; 0 stage candidates
+    Bounded static declarations; snapshot and network do not establish interaction execution
+    availability=available; inspection=partial; skipped=0
+    details: {"budgets": {"controls_per_stage": 32, "navigations": 64, "observations": 512, "prefills": 64,
+      "retry_paths": 32, "stages": 32, "transitions": 64}, "dom_controls_considered": 3, "dom_coverage":
+      "available", "javascript_inspection": "partial", "navigations": 0, "prefills": 0, "reasons": [],
+      "retry_paths": 0, "stage_candidates": 0, "stage_grouping": "available", "transition_analysis":
+      "available", "transitions_inferred": 0, "truncated": false}
+  findings: partial; 0 composed findings
+    synthesis complete within its budget; lower-layer inspection partial
+    Read-only bounded evidence synthesis; execution and value identity unresolved
+    availability=available; inspection=partial; skipped=0
+    details: {"budgets": {"findings": 64, "flow_variants": 16, "limitations": 16, "static_fields": 32,
+      "supporting_refs": 128}, "candidate_static_flows": 0, "deduplicated_flows": 0, "findings_emitted": 0,
+      "interaction_enriched": 0, "invalid_core_candidates": 0, "lower_static_coverage": {"availability":
+      "available", "inspection": "partial"}, "payload_enriched": 0, "reasons": [], "runtime_enriched": 0,
+      "state_counts": {}, "truncated": false}
+  Interaction coverage: {"budgets": {"controls_per_stage": 32, "navigations": 64, "observations": 512,
+    "prefills": 64, "retry_paths": 32, "stages": 32, "transitions": 64}, "dom_controls_considered": 3,
+    "dom_coverage": "available", "javascript_inspection": "partial", "navigations": 0, "prefills": 0,
+    "reasons": [], "retry_paths": 0, "stage_candidates": 0, "stage_grouping": "available",
+    "transition_analysis": "available", "transitions_inferred": 0, "truncated": false}
+  JavaScript budgets: {"abstract_value_nodes": 2000, "argument_mappings": 256, "ast_nodes_per_script": 20000,
+    "branch_depth": 8, "bytes_per_script": 131072, "call_depth": 3, "call_edges": 256, "cross_scope_steps": 8,
+    "flows": 256, "initiator_frames": 1, "nesting": 48, "operations_per_script": 40000,
+    "path_predicates_per_flow": 8, "path_variants_per_scope": 16, "path_variants_total": 256, "records": 2000,
+    "request_contexts_per_sink": 64, "request_contexts_total": 256, "resolved_invocations": 64,
+    "return_propagations": 128, "scripts": 64, "static_property_depth": 4, "string_chars": 256,
+    "tokens_per_script": 20000, "total_bytes": 524288, "transforms_per_flow": 24}
+  DOM order is not stage order; prefill is not submitted value provenance; requests do not establish stage
+    execution.
+  Markup does not establish visibility, submission, or frame/shadow document contents.
+  Client-side handlers may override or cancel markup behavior; runtime submission not established.
+  Presentation vocabulary is limited; logos/text do not establish intent, provider ownership or impersonation.
+  Request-body structure only; values, response payloads, redirect-history expansion and WebSocket messages
+    are not inspected.
+  Bounded local AST and helper dependencies only; JavaScript not executed, imports and general interprocedural
+    flows unsupported.
+  Origin and hostname relations do not establish ownership; PSL/provider registry unavailable.
+  body visibility varies; contents and encoded entries are not interpreted
+  request frame IDs only; no complete frame tree or frame document contents
+  external script source bytes are not supplied; URLs and response hashes are not source code
+  Limited static syntax and local flow subset; execution not performed
+  Body not preserved does not establish an empty body; only bounded structure inspected
+  Bounded static declarations; snapshot and network do not establish interaction execution
+
+Evidence index (derived facts only)
+  e-311d9647879568545253: provider_metadata / observed; Document URL metadata preserved
+    location: {"json_pointer": "/page/url"}
+  e-0ee86a2a6f488ef60824: provider_metadata / observed; Result artifact available
+    location: {"json_pointer": ""}
+  e-8c9ca9b65dd8d6c02b76: provider_metadata / not_observed; 0 captured cookies entries in this artifact
+    location: {"json_pointer": "/data/cookies"}
+  e-b50685f9f414047e6fef: provider_metadata / not_observed; 0 captured storages entries in this artifact
+    location: {"json_pointer": "/data/storages"}
+  e-6b6b018ce596386f6645: provider_metadata / not_observed; 0 captured websockets entries in this artifact
+    location: {"json_pointer": "/data/websockets"}
+  e-f3d2ef8c2ae38bf4d4eb: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/0"}
+  e-92d089872c971cb0c23d: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/0/response/response/status"}
+  e-885da91394375257025d: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/0/request/request"}
+  e-805922556b32bdffd10e: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/1"}
+  e-06a57a87be5f5ff80087: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/1/response/response/status"}
+  e-e652aff8873eab46695c: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/1/request/request"}
+  e-a08b2a4fde7cb0c87d8a: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/2"}
+  e-5f4669688015092fa0de: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/2/response/response/status"}
+  e-91982cf736544d3b4d89: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/2/request/request"}
+  e-fed833c0123e926cdad1: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/3"}
+  e-c2e75fd71c323d573bc4: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/3/response/response/status"}
+  e-ee6054d0d5c9a46de9aa: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/3/request/request"}
+  e-1761c44df58aa5069ecb: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/4"}
+  e-37a150a05e0ace3e836f: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/4/response/response/status"}
+  e-bf80358c2f9dabd34386: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/4/request/request"}
+  e-2d86a09fbb06071acf85: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/5"}
+  e-42ec324b032d14b90821: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/5/response/response/status"}
+  e-8eae3075f2ac996af27c: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/5/request/request"}
+  e-f93e43e5909af9325456: network_request / observed; Request metadata captured
+    location: {"json_pointer": "/data/requests/6"}
+  e-66d623fc941561a54fd4: network_response / observed; Response status captured
+    location: {"json_pointer": "/data/requests/6/response/response/status"}
+  e-8d459bfe0ed88e805e3f: request_payload / unresolved; Request payload visibility inventoried; contents not
+    interpreted
+    location: {"json_pointer": "/data/requests/6/request/request"}
+  e-3bd5a7c227229186a0d6: network_request / observed; Redirect metadata record captured; mechanism not
+    inferred
+    location: {"json_pointer": "/data/redirects/0"}
+  e-f4ec62cfa22ca88a35ec: console / observed; Console entry captured; message content omitted
+    location: {"json_pointer": "/data/console/0"}
+  e-65dba8b9a96e9fd3401a: dom_markup / observed; Control present in markup; visibility and submission not
+    established
+    location: {"column": 241, "line": 1}
+  e-4096502155b355022ab4: dom_markup / observed; Control present in markup; visibility and submission not
+    established
+    location: {"column": 556, "line": 1}
+  e-33c6eb453514f441fe97: dom_markup / observed; Control present in markup; visibility and submission not
+    established
+    location: {"column": 1013, "line": 1}
+  e-9a045c2e4408f4ebdcc3: dom_markup / observed; Presentation signal preserved; intent and ownership not
+    assessed
+    location: {"column": 34, "line": 1, "presentation_kind": "document_title"}
+  e-914d7d52db630cc4017b: static_code / declared; JavaScript artifact reference; execution not established
+    location: {"column": 1456, "line": 1, "script_index": 0}
+  e-c41de490d7318ef6acd3: static_code / declared; JavaScript artifact reference; execution not established
+    location: {"column": 1494, "line": 1, "script_index": 1}
+  e-289c7d5c199942d89d78: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"json_pointer": "/data/requests/3"}
+  e-0ffa2f440383763acb1c: static_code / artifact_unavailable; JavaScript artifact reference; execution not
+    established
+    location: {"json_pointer": "/data/requests/4"}
+  e-06e41bdc0cc6cd720985: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/0/request/request"}
+  e-b47efa2e6eb81007863c: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/1/request/request"}
+  e-9678efe012dcff527c6b: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/2/request/request"}
+  e-f268af12afc32c8f74a1: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/3/request/request"}
+  e-e4a6d26ca749a4796767: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/4/request/request"}
+  e-969eb7599ab6b5f11d3a: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/5/request/request"}
+  e-cdc48694ee47096e0491: request_payload / artifact_unavailable; Preserved request-body structure only;
+    source values not compared
+    location: {"json_pointer": "/data/requests/6/request/request"}
+  not observed != does not exist
+  JavaScript not executed; local static flows do not establish submission or receipt.

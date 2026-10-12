@@ -1,0 +1,2 @@
+# Regression captures and goldens retain their exact bytes, including whitespace.
+tests/fixtures/** -text -whitespace

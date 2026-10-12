@@ -1,69 +1,125 @@
 # urlscanx
 
-A small CLI for inspecting and comparing completed urlscan.io scans. It fetches the Result API response and, when available, the DOM for form analysis.
+A Python CLI for inspecting, comparing and analyzing completed [urlscan.io](https://urlscan.io/) scans.
+
+Use it to review a scan's requests, forms and indicators, find technical overlap
+between scans, and inspect supported static JavaScript flows alongside preserved
+runtime evidence. `--analyze` works on captured artifacts: it does not visit the
+scanned site or execute its JavaScript.
 
 ## Install
+
+Requires **Python 3.11 or newer**. Installation includes the pinned Python AST
+parser `esprima2==6.0.0`; Node.js is not required.
 
 ```sh
 pipx install git+https://github.com/carlosbenavides23/urlscanx.git
 ```
 
-## API key
-
-Create a urlscan.io API key and set it in your environment.
-
-bash/zsh:
+To update an existing installation:
 
 ```sh
-export URLSCAN_API_KEY="..."
+pipx upgrade urlscanx
 ```
 
-fish:
+Alternatively, install in a virtual environment:
+
+```sh
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install git+https://github.com/carlosbenavides23/urlscanx.git
+```
+
+## Configure your API key
+
+Set `URLSCAN_API_KEY` to your urlscan.io API key.
+
+Bash or zsh:
+
+```sh
+export URLSCAN_API_KEY="your-api-key"
+```
+
+PowerShell:
+
+```powershell
+$env:URLSCAN_API_KEY = "your-api-key"
+```
+
+Fish:
 
 ```fish
-set -Ux URLSCAN_API_KEY "..."
+set -Ux URLSCAN_API_KEY "your-api-key"
 ```
 
-## Usage
+## Quick start
+
+`<scan>` accepts a scan UUID or `https://urlscan.io/result/<UUID>/`.
 
 ```sh
-urlscanx <scan>
-urlscanx <scan> --iocs
-urlscanx <scan> --requests
-urlscanx <scan> --json
-urlscanx <scan> --save
-urlscanx <scan> --verbose
+urlscanx <scan>                       # General report
+urlscanx <scan> --iocs                # Indicator inventory
+urlscanx <scan> --requests            # HTTP request inventory
+urlscanx <scan> --analyze             # Passive evidence analysis
+urlscanx <scan> --analyze --verbose   # Full bounded provenance
+urlscanx <scan> --analyze --json      # Raw Result + structured analysis
+urlscanx <scan> --analyze --save      # Save evidence and analysis
+
 urlscanx compare <scan1> <scan2>
 urlscanx compare <scan1> <scan2> <scan3>
-urlscanx compare <scan1> <scan2> <scan3> <scan4> <scan5> --min-shared 3
-urlscanx compare <scan1> <scan2> <scan3> --verbose
+urlscanx compare <scan1> <scan2> <scan3> <scan4> --min-shared 3
 ```
 
-`<scan>` is a UUID or `https://urlscan.io/result/<UUID>/`.
+For a complete option list, run `urlscanx --help` or `urlscanx compare --help`.
 
-Human-readable views shorten long values and redact likely URL credentials with a short SHA-256 fingerprint. `--verbose` shows all console messages (or all comparison entries). `--json` and saved `result.json` keep the complete API response.
+## What the reports mean
 
-Comparison labels use observed request methods, form actions, and resource types. They describe technical context, not attribution.
+- **Inspect:** compact scan details, requests, form metadata and browser evidence.
+- **Compare:** domains, IPs, URLs, hashes, technologies, external endpoints and
+  submission endpoints. Multi-scan prevalence counts presence once per scan.
+- **Analyze:** supported input-to-request static flows, bounded helper calls and
+  paths, compatible runtime requests, preserved payload field structure, and
+  interaction declarations with traceable evidence references.
 
-Two scans retain the existing A/B comparison, categorized overlap, and title/IP matches.
-Three or more distinct scans use a prevalence report for domains, IPs, URLs, hashes,
-technologies, external endpoints, and submission endpoints. Each exact source value
-counts once per scan, even if it occurs repeatedly. The report lists artifacts shared
-by all scans, subset groups such as `3/5` with scan membership, and per-scan unique artifacts.
-Values are compared before display redaction or shortening.
+Static code does not prove execution. A compatible runtime request does not prove
+that a particular source value was transmitted. Payload correspondence describes
+structure, not value equality. Findings describe technical evidence without a
+phishing verdict, risk score or attribution claim. General reports may show
+urlscan's own verdicts as provider data.
 
-`--min-shared N` filters shared groups (default `2`; valid range `2` through the scan count).
-Per-scan unique sections remain visible independently of this filter. Normal comparison
-sections show up to 15 entries; `--verbose` shows every entry while retaining URL
-redaction and long-value shortening. DOM assets are optional: submission endpoints
-include observed POST/PUT/PATCH requests and available POST form actions. A failed
-Result API request stops comparison and identifies the failing scan in multi-scan mode.
+Unavailable artifacts, unresolved relationships and truncated inspection are
+reported explicitly. Missing DOM or request bodies can limit analysis even when
+the Result remains available.
 
-## Saving scans
+## Output and privacy
 
-Nothing is persisted by default. `--save` creates `urlscanx-output/<UUID>/` with `result.json` and `report.txt`, plus `dom.html` and `screenshot.png` when urlscan has those assets available.
-Saved `result.json` and `dom.html` retain raw evidence, including any sensitive values present in the scan.
+Normal reports are compact; `--verbose` expands entries and analysis provenance
+while retaining secret protection. Human-readable analysis is plain text without
+ANSI codes. Raw `--json` returns the complete Result; `--analyze --json` includes
+that same raw Result plus derived evidence.
+
+**Raw artifacts can contain sensitive values.** Human and derived analysis views
+protect secret-like tokens and omit password/OTP/PIN/card values. That protection
+does not sanitize the raw Result, DOM or screenshots.
+
+`--save` writes to `urlscanx-output/<UUID>/`. No files are saved by default.
+See [usage and saving](docs/usage.md) for file names and mode combinations.
+
+## Release and limits
+
+Current package: **0.12.0**. Analysis schema: **1.0**. Ruleset: **mvp-b.7**.
+The current bounded passive analysis scope is complete. This is a pre-1.0 release;
+it does not promise a stable 1.x API. Analysis JSON is deterministic for identical
+artifacts and ruleset, with `metadata.analyzed_at=null` by default.
+
+The analyzer does not recover missing imports, execute browser/framework code,
+solve arbitrary paths or async behavior, verify endpoints, or establish exact
+source-value equality. It creates no new scan and performs no target interaction.
+
+- [Usage, comparison and saved files](docs/usage.md)
+- [Understanding analysis evidence and JSON](docs/analysis.md)
+- [Development and offline tests](docs/development.md)
 
 ## License
 
-MIT.
+[MIT](LICENSE).

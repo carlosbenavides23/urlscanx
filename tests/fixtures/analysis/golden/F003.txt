@@ -1,0 +1,51 @@
+urlscanx analysis
+Scan: 01a1035c-ea98-7198-bcdc-9b105fc8c029
+Time: 2026-10-03T20:03:09.169Z
+Origin: https://paypal-transactions.sbs
+
+Analysis summary
+  Sensitive static request findings: 0 supported; inspection partial
+  Runtime-supported findings: 0 observed
+  Runtime payload structure support: unavailable
+  Interaction stage candidates: 0
+  Unresolved targets: 0 supported; inspection partial
+  Execution of static flows is not established.
+  Structural payload correlation does not establish source value equality.
+
+Analyst findings
+  Evidence synthesis; execution and source value identity not established.
+  No supported primary composed findings.
+
+Input / interaction overview
+  DOM markup: 0 forms; 3 controls
+  Controls: email 1, otp candidate 1, password 1
+  Runtime submission not established; markup handlers may override or cancel form behavior.
+  Stage candidates: 0; ordering and runtime interaction not established.
+
+Request / payload evidence summary
+  Request bodies: unavailable; not preserved does not mean empty
+
+Notable static JavaScript evidence
+  Scripts: 1 failed, 1 parsed, 2 unavailable
+  0 static flows; 0 outside primary findings (--verbose for provenance)
+  No supported static flows observed in inspected code.
+
+Runtime observations
+  7 preserved requests: GET 7
+  WebSocket: not observed (0 preserved)
+  cookies: 0 snapshot entries; values omitted
+  storages: 0 snapshot entries; values omitted
+
+Coverage / limitations
+  requests: complete; 7 preserved records
+  dom: complete; 3 markup controls
+  javascript: partial; 4 script records
+    Limited static syntax and local flow subset; execution not performed
+  request bodies: unavailable
+  interaction: partial; 0 stage candidates
+    Bounded static declarations; snapshot and network do not establish interaction execution
+  findings: partial; 0 composed findings
+    synthesis complete within its budget; lower-layer inspection partial
+    Read-only bounded evidence synthesis; execution and value identity unresolved
+  not observed != does not exist
+  JavaScript not executed; local static flows do not establish submission or receipt.

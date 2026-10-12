@@ -10,6 +10,8 @@ import tempfile
 from pathlib import Path
 
 from .api import ScanError, api_key, fetch_asset, fetch_result, parse_scan
+from .analysis import analyze, analysis_envelope
+from .analysis.render import format_analysis
 from .compare import format_comparison, format_multi_comparison
 from .report import format_iocs, format_report, format_requests
 
@@ -20,6 +22,9 @@ def save_scan(
     report: str,
     dom: bytes | None,
     screenshot: bytes | None,
+    *,
+    analysis_document: dict | None = None,
+    analysis_text: str | None = None,
 ) -> tuple[Path, list[str]]:
     directory = Path("urlscanx-output") / scan_id
     if directory.exists():
@@ -32,14 +37,20 @@ def save_scan(
         try:
             dom.decode("utf-8")
         except UnicodeDecodeError:
-            warnings.append("DOM unavailable: urlscan returned invalid UTF-8")
-            dom = None
+            if analysis_document is not None:
+                warnings.append("DOM analysis unavailable: invalid UTF-8; original bytes saved unchanged")
+            else:
+                warnings.append("DOM unavailable: urlscan returned invalid UTF-8")
+                dom = None
     staged: Path | None = None
     try:
         directory.parent.mkdir(exist_ok=True)
         staged = Path(tempfile.mkdtemp(prefix=f".{scan_id}-", dir=directory.parent))
         (staged / "result.json").write_text(json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         (staged / "report.txt").write_text(report + "\n", encoding="utf-8")
+        if analysis_document is not None:
+            (staged / "analysis.json").write_text(json.dumps(analysis_document, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            (staged / "analysis.txt").write_text((analysis_text or "") + "\n", encoding="utf-8")
         if dom is not None:
             (staged / "dom.html").write_bytes(dom)
         else:
@@ -99,7 +110,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"urlscanx: {exc}", file=sys.stderr)
             return exc.exit_code
     parser = argparse.ArgumentParser(
-        prog="urlscanx", description="Inspect and compare urlscan.io results.",
+        prog="urlscanx", description="Inspect, compare and analyze completed urlscan.io scans.",
         epilog="Compare two scans with: urlscanx compare <scan1> <scan2>",
     )
     parser.add_argument("scan", help="scan UUID or result URL")
@@ -107,20 +118,46 @@ def main(argv: list[str] | None = None) -> int:
     modes.add_argument("--json", action="store_true", help="print complete Result API JSON")
     modes.add_argument("--iocs", action="store_true", help="print only indicators")
     modes.add_argument("--requests", action="store_true", help="print compact HTTP requests")
+    parser.add_argument("--analyze", action="store_true", help="analyze preserved DOM, JavaScript, requests, payload structure, and interaction evidence")
     parser.add_argument("--save", action="store_true", help="save JSON, report, DOM, and screenshot when available")
-    parser.add_argument("--verbose", action="store_true", help="show all console messages in the report")
+    parser.add_argument("--verbose", action="store_true", help="show all report entries or analysis provenance; values remain protected")
     args = parser.parse_args(argv)
+    if args.analyze and (args.iocs or args.requests):
+        parser.error("--analyze cannot be combined with --iocs or --requests")
     try:
         scan_id = parse_scan(args.scan)
         key = api_key()
-        result = fetch_result(scan_id, key)
+        result = fetch_result(scan_id, key, artifact_only=True) if args.analyze else fetch_result(scan_id, key)
 
-        need_dom = (not args.json and not args.iocs and not args.requests) or args.save
-        dom = fetch_asset(scan_id, "dom", key, optional=True) if need_dom else None
-        screenshot = fetch_asset(scan_id, "screenshot", key, optional=True) if args.save else None
-        report = format_report(result, scan_id, dom, verbose=args.verbose)
+        need_dom = args.analyze or (not args.json and not args.iocs and not args.requests) or args.save
+        dom_error = None
+        if args.analyze:
+            try:
+                dom = fetch_asset(scan_id, "dom", key, optional=True, artifact_only=True)
+            except ScanError:
+                dom, dom_error = None, "optional DOM retrieval failed"
+                print("urlscanx: warning: DOM unavailable; continuing with preserved Result evidence; analysis coverage is partial", file=sys.stderr)
+        else:
+            dom = fetch_asset(scan_id, "dom", key, optional=True) if need_dom else None
+        asset_options = {"artifact_only": True} if args.analyze else {}
+        screenshot = None
+        if args.save:
+            try:
+                screenshot = fetch_asset(scan_id, "screenshot", key, optional=True, **asset_options)
+            except ScanError:
+                if not args.analyze:
+                    raise
+                print("urlscanx: warning: screenshot unavailable; analysis continues from Result and DOM", file=sys.stderr)
+        report = format_report(result, scan_id, dom, verbose=args.verbose) if not args.analyze or args.save else ""
 
-        if args.json:
+        envelope, analysis_text = None, None
+        if args.analyze:
+            analysis = analyze(result, scan_id, dom, dom_error=dom_error)
+            envelope = analysis_envelope(result, scan_id, dom, analysis)
+            if not args.json or args.save:
+                analysis_text = format_analysis(envelope, verbose=args.verbose)
+            print(json.dumps(envelope, indent=2, ensure_ascii=False) if args.json else analysis_text)
+        elif args.json:
             print(json.dumps(result, indent=2, ensure_ascii=False))
         elif args.iocs:
             print(format_iocs(result))
@@ -130,7 +167,14 @@ def main(argv: list[str] | None = None) -> int:
             print(report)
 
         if args.save:
-            directory, warnings = save_scan(scan_id, result, report, dom, screenshot)
+            if envelope is not None:
+                # Derived-only sidecar; result.json and other original artifacts stay authoritative.
+                document = {key: value for key, value in envelope.items() if key != "result"}
+                document["metadata"] = {**document["metadata"], "result_file": "result.json"}
+                directory, warnings = save_scan(scan_id, result, report, dom, screenshot,
+                                                analysis_document=document, analysis_text=analysis_text)
+            else:
+                directory, warnings = save_scan(scan_id, result, report, dom, screenshot)
             print(f"Saved to {directory}", file=sys.stderr)
             for warning in dict.fromkeys(warnings):
                 print(f"urlscanx: warning: {warning}", file=sys.stderr)

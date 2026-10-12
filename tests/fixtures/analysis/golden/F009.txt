@@ -1,0 +1,61 @@
+urlscanx analysis
+Scan: af7a35ce-cb1b-41c3-9e5a-d7bce052b70f
+Time: 2022-12-30T14:52:07.344Z
+Origin: https://solanabeach.io
+
+Analysis summary
+  Sensitive static request findings: 0 supported; inspection partial
+  Runtime-supported findings: 0 observed
+  Runtime payload structure support: 0 structurally compatible; body coverage partial
+  Interaction stage candidates: 0
+  Unresolved targets: 0 supported; inspection partial
+  Execution of static flows is not established.
+  Structural payload correlation does not establish source value equality.
+
+Analyst findings
+  Evidence synthesis; execution and source value identity not established.
+  No supported primary composed findings.
+
+Input / interaction overview
+  DOM markup: 0 forms; 4 controls
+  Controls: generic text 1, unknown 3
+  Runtime submission not established; markup handlers may override or cancel form behavior.
+  Stage candidates: 0; ordering and runtime interaction not established.
+  Prefill: existing dom value; 4 records; path: unresolved; final submitted values unresolved
+
+Request / payload evidence summary
+  Request bodies: 4 preserved; 0 parsed; 0 empty; 4 unsupported; 0 malformed; 0 truncated; 34 unavailable
+  POST https://public-api-ws.solanabeach.io/socket.io/?EIO=4&transport=polling&t=[omitted]&sid=[omitted]:
+    unsupported
+    3 body records with the same protected URL / format / field structure; distinct request refs in --verbose
+  POST https://in.hotjar.com/api/v2/client/sites/2380947/visit-data?sv=[omitted]: unsupported
+
+Notable static JavaScript evidence
+  Scripts: 2 parsed, 20 unavailable
+  0 static flows; 0 outside primary findings (--verbose for provenance)
+  No supported static flows observed in inspected code.
+
+Runtime observations
+  38 preserved requests: GET 30, OPTIONS 3, POST 5
+  Socket.IO HTTP polling: 7 requests; GET 4, POST 3
+    https://public-api-ws.solanabeach.io/socket.io/?EIO=4&transport=polling
+    without sid: 1 requests (sid values omitted)
+    with sid: 6 requests (sid values omitted)
+  WebSocket: not observed (0 preserved)
+  cookies: 0 snapshot entries; values omitted
+  storages: 0 snapshot entries; values omitted
+
+Coverage / limitations
+  requests: complete; 38 preserved records
+  dom: complete; 4 markup controls
+  javascript: partial; 22 script records
+    Limited static syntax and local flow subset; execution not performed
+  request bodies: partial; 4 preserved bodies
+    Body not preserved does not establish an empty body; only bounded structure inspected
+  interaction: partial; 0 stage candidates
+    Bounded static declarations; snapshot and network do not establish interaction execution
+  findings: partial; 0 composed findings
+    synthesis complete within its budget; lower-layer inspection partial
+    Read-only bounded evidence synthesis; execution and value identity unresolved
+  not observed != does not exist
+  JavaScript not executed; local static flows do not establish submission or receipt.

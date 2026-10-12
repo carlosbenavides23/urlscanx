@@ -1,0 +1,74 @@
+urlscanx analysis
+Scan: 019912b3-8146-73d6-9eca-ced6a6e48848
+Time: 2025-09-04T03:09:48.135Z
+Origin: https://buy.stripe.com
+
+Analysis summary
+  Sensitive static request findings: 0 supported; inspection partial
+  Runtime-supported findings: 0 observed
+  Runtime payload structure support: 0 structurally compatible; body coverage partial
+  Interaction stage candidates: 1
+  Unresolved targets: 0 supported; inspection partial
+  Execution of static flows is not established.
+  Structural payload correlation does not establish source value equality.
+
+Analyst findings
+  Evidence synthesis; execution and source value identity not established.
+  No supported primary composed findings.
+
+Input / interaction overview
+  DOM markup: 1 forms; 8 controls
+  Controls: contact data 1, email 1, payment cvc 1, payment expiry 1, payment pan 1, person name 1, postal
+    code 1, unknown 1
+  Form: markup form method GET / target https://buy.stripe.com/aFabJ1fL1gKAfVBgBb6Wt1O
+  Runtime submission not established; markup handlers may override or cancel form behavior.
+  Stage candidates: 1; ordering and runtime interaction not established.
+    Stage candidate: identifier, payment, personal information
+  Prefill: existing dom value; 6 records; path: unresolved; final submitted values unresolved
+
+Request / payload evidence summary
+  Request bodies: 18 preserved; 0 parsed; 0 empty; 18 unsupported; 0 malformed; 0 truncated; 105 unavailable
+  POST https://merchant-ui-api.stripe.com/payment-links/aFabJ1fL1gKAfVBgBb6Wt1O: unsupported
+  POST https://r.stripe.com/b: unsupported
+    14 body records with the same protected URL / format / field structure; distinct request refs in --verbose
+  POST https://m.stripe.com/6: unsupported
+    3 body records with the same protected URL / format / field structure; distinct request refs in --verbose
+
+Notable static JavaScript evidence
+  Scripts: 3 parsed, 40 unavailable
+  0 static flows; 0 outside primary findings (--verbose for provenance)
+  No supported static flows observed in inspected code.
+
+Runtime observations
+  123 preserved requests: GET 86, OPTIONS 3, POST 34
+  Repeated endpoint: 2 requests; GET 1, POST 1
+    https://merchant-ui-api.stripe.com/payment-links/aFabJ1fL1gKAfVBgBb6Wt1O
+  Repeated endpoint: 7 requests; GET 7
+    https://js.stripe.com/v3/.deploy_status_henson.json
+  Repeated endpoint: 2 requests; GET 2
+    https://js.stripe.com/v3/fingerprinted/js/stripe-cookies-0365765a4afa0da4fe353e8fa3bd8a03.js
+  Repeated endpoint: 22 requests; POST 22
+    https://r.stripe.com/b
+  Repeated endpoint: 2 requests; GET 2
+    https://d1wqzb5bdbcre6.cloudfront.net/6db363a3ff3e06002c572eb8277a910b006911464b9fb24fdd8dafe39bc27ec4/[om
+      itted]/6d65726368616e745f69643d616363745f314b50466c4a…
+  ... 9 more patterns (--verbose)
+  WebSocket: not observed (0 preserved)
+  cookies: 6 snapshot entries; values omitted
+  storages: 0 snapshot entries; values omitted
+
+Coverage / limitations
+  requests: complete; 123 preserved records
+  dom: complete; 8 markup controls
+  javascript: partial; 43 script records
+    Limited static syntax and local flow subset; execution not performed
+  request bodies: partial; 18 preserved bodies
+    Body not preserved does not establish an empty body; only bounded structure inspected
+  interaction: partial; 1 stage candidates
+    Bounded static declarations; snapshot and network do not establish interaction execution
+  findings: partial; 0 composed findings
+    synthesis complete within its budget; lower-layer inspection partial
+    Read-only bounded evidence synthesis; execution and value identity unresolved
+  not observed != does not exist
+  JavaScript not executed; local static flows do not establish submission or receipt.
+  Long display values shortened; use --verbose for full protected values.
